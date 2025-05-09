@@ -1,0 +1,21 @@
+*{
+    box-sizing: border-box; /* because i made the header fixed & width 100% so mak all the elemnts inside the border*/
+}
+body{
+    background-color: #d7d7d7;
+}
+
+.main-header{
+    position: fixed;               /* to make the header fixed through scrolling in the page */
+    top: 0;
+    width: 100%;
+}
+
+.top-row {
+    display: flex;                    /* now all the children of the top-row are flex item of the flex container top-row*/
+    /*all these features needs flex container to work with */
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;                /* items to wrap onto multiple lines , prevents overlap*/
+    padding: 10px 20px;
+}

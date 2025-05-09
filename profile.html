@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+
+<body>
+    <h2>User Profile</h2>
+    <form id="profileForm">    <!-- method="POST" class="profilePageForm" -->
+        <label>Username:</label> 
+        <input type="text" id="username" disabled>
+        <button type="button" onclick="enableEdit('username')">Edit</button><br><br>
+        
+        <label>Password::</label> 
+        <input type="password" id="password" disabled>
+        <button type="button" onclick="enableEdit('password')">Edit</button><br><br>
+        
+        <label>Email:</label> 
+        <input type="text" id="email" disabled>
+        <button type="button" onclick="enableEdit('email')">Edit</button><br><br>
+        
+        <label>Address:</label> 
+        <input type="text" id="address" disabled>
+        <button type="button" onclick="enableEdit('address')">Edit</button><br><br>
+        
+        <label>Phone:</label> 
+        <input type="text" id="phone" disabled>
+        <button type="button" onclick="enableEdit('phone')">Edit</button><br><br>
+        
+        <button type="submit">Save</button>
+    </form>
+    <script src="static/script.js"></script>
+</body>
+</html>
