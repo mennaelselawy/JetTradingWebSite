@@ -7,29 +7,54 @@
 </head>
 
 <body>
-    <h2>User Profile</h2>
-    <form id="profileForm">    <!-- method="POST" class="profilePageForm" -->
-        <label>Username:</label> 
-        <input type="text" id="username" disabled>
+
+    <header class="main-header">
+        <div class="top-row">
+            <div class="logo">
+                <a href="/"><img src="static/images/jetTradingLogo.png" alt="Jet Trading Logo"></a>
+            </div>
+            
+            <div class="nav-buttons">
+                <button>Devices</button>
+                <button>Accessories</button>
+                <button>About</button>
+            </div>
+        </div>
+        <div class="search-row">
+
+        </div>
+    </header>
+
+    <h2 class="h2">User Profile</h2>
+    $$ERROR$$
+    <form id="profileForm" action="/profile" method="POST">    <!-- method="POST" class="profilePageForm" -->
+        <label >Username:</label> 
+        <input type="text" id="username" name="username" readonly>
         <button type="button" onclick="enableEdit('username')">Edit</button><br><br>
         
         <label>Password::</label> 
-        <input type="password" id="password" disabled>
+        <input type="password" id="password" name="password" readonly>
         <button type="button" onclick="enableEdit('password')">Edit</button><br><br>
         
         <label>Email:</label> 
-        <input type="text" id="email" disabled>
-        <button type="button" onclick="enableEdit('email')">Edit</button><br><br>
+        <input type="text" id="email" name="email" readonly> <br><br>
+        <!-- <button type="button" onclick="enableEdit('email')">Edit</button><br><br> -->
         
         <label>Address:</label> 
-        <input type="text" id="address" disabled>
+        <input type="text" id="address" name="address" readonly>
         <button type="button" onclick="enableEdit('address')">Edit</button><br><br>
         
         <label>Phone:</label> 
-        <input type="text" id="phone" disabled>
+        <input type="text" id="phone" name="phone" readonly>
         <button type="button" onclick="enableEdit('phone')">Edit</button><br><br>
         
         <button type="submit">Save</button>
+        <button type="button" onclick="logout()">Logout</button>
+    </form>
+    <form id="deleteForm" action="/delete" method="Post"> 
+        <button type="submit">Delete Account</button>
+        <!-- User() class relies on getting form values (like email) via flask.request.form.get().SO If your deleteForm only contains a submit button, then no actual form fields (like email) are posted, so user.email becomes None. This causes the backend to fail to find a user and remove them.  -->
+        <input type="hidden" id="deleteEmail" name="email"value="">
     </form>
     <script src="static/script.js"></script>
 </body>

@@ -15,9 +15,34 @@
             </div>
             
             <div class="nav-buttons">
-                <button>Devices</button>
-                <button>Accessories</button>
-                <button>About</button>
+                <div class="dropdown">
+                    <!-- <form id="devicesForm">
+                        <button type="submit" class="dropdown-button">Devices</button>
+                    </form> -->
+                    <a href="/devicesLoggedIn"><button class="dropdown-button">Devices</button></a>
+                    <div class="dropdown-content">
+                        <a href="/devicesLoggedIn?category=laptops">Laptops</a>
+                        <a href="/devicesLoggedIn?category=printers">Printers</a>
+                        <a href="/devicesLoggedIn?category=tablets">Tablets</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <button class="dropdown-button">Accesssories</button>
+                    <div class="dropdown-content">
+                        <a href="#">Cables</a>
+                        <a href="#">Bags</a>
+                        <a href="#">Head-Phones</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <button class="dropdown-button">About</button>
+                    <div class="dropdown-content">
+                        <a href="#">Our Story</a>
+                        <a href="#">Contact</a>
+                    </div>
+                </div>
             </div>
             
             <div class="profile">
@@ -29,12 +54,19 @@
             </div>
         </div>
         <div class="search-row">
-
+            <form class="search-form" action="/devices" method="get">
+                <input type="text" name="query" placeholder="Search for products..." required>  <!-- required prevents the form from submitting if the input is empty -->
+                <button type="submit" class="search-button">
+                    <img src="/static/images/search.png" alt="Search">
+                </button>
+            </form>
+            <img src="static/images/cart-icon.png" onclick="goToCart()" class="add-to-cart-icon">
         </div>
     </header>
     <div class="loggedin">
         <!-- 3AYZA A7OT L USERNAME MN L JAVA SCRIPT HOWA KEDA HAYKON SAVED IN LOCAL STORAGE W A2OL MSLN WELCOM USERNAME
          a3mlha mn text file i guess -->
+        <h2>Welcome, <span id="welcomeUser"></span>!</h2>
     </div>
     <script src="static/script.js"></script>
 </body>

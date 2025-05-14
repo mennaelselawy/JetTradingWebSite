@@ -4,13 +4,6 @@
         "password": "1234",
         "email": "sama@example.com",
         "address": "apartment:20 ,building:5, street abbas ,Nasr city ,Cairo, Egypt",
-        "phone": "01012345678"
-    },
-    {
-        "username": "Menna Elselawy",
-        "password": "5678",
-        "email": "menna@website.com",
-        "address": "apartment:10 ,building: 66 , street korba ,masr elgedida city ,Cairo, Egypt",
-        "phone": "011223344556"
+        "phone": "0101010101010"
     }
 ]
