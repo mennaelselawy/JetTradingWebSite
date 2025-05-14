@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Profile</title>
     <link rel="stylesheet" href="static/style.css">
 </head>
@@ -29,7 +31,7 @@
     $$ERROR$$
     <form id="profileForm" action="/profile" method="POST">    <!-- method="POST" class="profilePageForm" -->
         <label >Username:</label> 
-        <input type="text" id="username" name="username" readonly>
+        <input type="text" id="username" name="username" value="$$USERNAME$$" readonly>
         <button type="button" onclick="enableEdit('username')">Edit</button><br><br>
         
         <label>Password::</label> 
@@ -37,15 +39,15 @@
         <button type="button" onclick="enableEdit('password')">Edit</button><br><br>
         
         <label>Email:</label> 
-        <input type="text" id="email" name="email" readonly> <br><br>
+        <input type="text" id="email" name="email" value="$$EMAIL$$" readonly> <br><br>
         <!-- <button type="button" onclick="enableEdit('email')">Edit</button><br><br> -->
         
         <label>Address:</label> 
-        <input type="text" id="address" name="address" readonly>
+        <input type="text" id="address" name="address" value="$$ADDRESS$$" readonly>
         <button type="button" onclick="enableEdit('address')">Edit</button><br><br>
         
         <label>Phone:</label> 
-        <input type="text" id="phone" name="phone" readonly>
+        <input type="text" id="phone" name="phone" value="$$PHONE$$" readonly>
         <button type="button" onclick="enableEdit('phone')">Edit</button><br><br>
         
         <button type="submit">Save</button>
@@ -56,6 +58,7 @@
         <!-- User() class relies on getting form values (like email) via flask.request.form.get().SO If your deleteForm only contains a submit button, then no actual form fields (like email) are posted, so user.email becomes None. This causes the backend to fail to find a user and remove them.  -->
         <input type="hidden" id="deleteEmail" name="email"value="">
     </form>
+    <a href="javascript:history.back()" class="back-button">Back</a>
     <script src="static/script.js"></script>
 </body>
 </html>

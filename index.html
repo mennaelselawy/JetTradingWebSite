@@ -11,7 +11,9 @@
     <header class="main-header">
         <div class="top-row">
             <div class="logo">
-                <a href="/"><img src="static/images/jetTradingLogo.png" alt="Jet Trading Logo"></a>
+                <a href="#" onclick="logOutAndRedirectToHome()">
+                    <img src="static/images/jetTradingLogo.png" alt="Jet Trading Logo">
+                </a>
             </div>
             
             <div class="nav-buttons">
@@ -57,7 +59,10 @@
                     <img src="/static/images/search.png" alt="Search">
                 </button>
             </form>
-            <img src="static/images/cart-icon.png" onclick="goToCart()" class="add-to-cart-icon">
+           <a href="/login" class="add-to-cart-link">
+            <img src="static/images/cart-icon.png" class="add-to-cart-icon" alt="Add to cart" style="width:35px; height:35px">
+            <div>Cart</div>
+            </a> 
         </div>
         
     </header>
@@ -65,19 +70,19 @@
     <div id="devices_categories">
         <h2 class="category-title">Devices</h2>
         <div class="category">
-            <a href="/devices/laptops">
+            <a href="/devices?category=laptops">
                 <img src="/static/images/laptops.jpg" alt="Laptops">
                 <span>Laptops</span>
             </a>
         </div>
         <div class="category">
-            <a href="/devices/printers">
+            <a href="/devices?category=printers">
                 <img src="/static/images/printers.jpg" alt="Printers">
                 <span>Printers</span>
             </a>
         </div>
         <div class="category">
-            <a href="/devices/tablets">
+            <a href="/devices?category=tablets">
                 <img src="/static/images/tablets.jpg" alt="Tablets">
                 <span>Tablets</span> 
             </a>

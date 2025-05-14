@@ -10,7 +10,11 @@ html, body{
     padding-top: 70px; /* Equal to header height */
     max-width: 100%;
 }
-                                               /*HEADER*/
+a{
+    text-decoration: none;
+    color: black;
+}
+                                                       /*HEADER*/
 .main-header{
     position: fixed;               /* to make the header fixed through scrolling in the page */
     top: 0;
@@ -127,12 +131,15 @@ html, body{
 .search-row .add-to-cart-icon{
     width: 5%;
 }
+/* .search-row .add-to-cart-link{
+    width: 200%;
+} */
                                                  /*HOME PAGE*/
 #devices_categories{
     display: flex;
     justify-content: center;
     gap: 30px;
-    margin-top: 200px;
+    margin-top: 75px;
     margin-bottom: 50px;
     flex-wrap: wrap; /* Responsive wrap */
     text-align: center;
@@ -228,6 +235,16 @@ html, body{
     text-align: center;
     max-width: 100%;
     box-sizing: border-box;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;  /* If the element is scaled, rotated, moved, etc. using transform, it will animate over 0.2 seconds. */
+}
+.device-card:hover{
+    transform: scale(1.03);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.device-card-link{
+    text-decoration: none;
+    color: inherit;       /*inherit means Use the same text color as the parent element.*/
 }
 .device-img{
     width: 100%;
@@ -249,5 +266,21 @@ html, body{
     margin-top: 8px;
 }
 
+
+
+
+
+.back-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: #444;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+}
+.back-button:hover {
+    background-color: #222;
+}
 
 

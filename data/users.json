@@ -5,5 +5,19 @@
         "email": "sama@example.com",
         "address": "apartment:20 ,building:5, street abbas ,Nasr city ,Cairo, Egypt",
         "phone": "0101010101010"
+    },
+    {
+        "username": "Menna Elselawy",
+        "password": "5678",
+        "email": "menna@website.com",
+        "location": "apartment:10 ,building: 66 , street korba ,masr elgedida city ,Cairo, Egypt",
+        "phone": "011223344556"
+    },
+    {
+        "username": "ashraf",
+        "password": "elselawy",
+        "email": "ashraf@gmail.com",
+        "address": "mohandsien, giza",
+        "phone": "012587496587"
     }
 ]

@@ -10,17 +10,17 @@ function saveUserDataToLocalStorage(){
       //manually get the form values
     const username = document.getElementById("username").value.trim();
     const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value;
-    const address = document.getElementById("address").value.trim();
-    const phone = document.getElementById("phone").value.trim();
+    // const password = document.getElementById("password").value;
+    // const address = document.getElementById("address").value.trim();
+    // const phone = document.getElementById("phone").value.trim();
 
     //to build an object in js as a struct in c++
     const user = {
         username,
         email,
-        password,
-        address,
-        phone
+        // password,
+        // address,
+        // phone
     };
 
     let users= JSON.parse(localStorage.getItem("users")) || [];   //oring it with curly brackets to start with empty array if no users
@@ -49,6 +49,11 @@ if(loginForm){
     loginForm.addEventListener("submit", storeTheLoggedInUserEmail);
 }
 
+// clear current user when browser closes
+window.addEventListener("beforeunload", function(){
+    localStorage.removeItem("currentUser");
+    localStorage.removeItem("currentUserEmail");
+})
 
 function showUserDataToEdit(){
     // let users= JSON.parse(localStorage.getItem("users")) || [];  
@@ -66,10 +71,10 @@ function showUserDataToEdit(){
 function updateUserDataToLocalStorage(){
     const updatedUser ={
         username: document.getElementById("username").value,
-        password: document.getElementById("password").value,
+        // password: document.getElementById("password").value,
         email: document.getElementById("email").value,
-        address: document.getElementById("address").value,
-        phone: document.getElementById("phone").value
+        // address: document.getElementById("address").value,
+        // phone: document.getElementById("phone").value
     };
 
     let users = JSON.parse(localStorage.getItem("users")) || [];
@@ -91,9 +96,9 @@ document.addEventListener("DOMContentLoaded", function(){
 });
 
 
-function logout() {
-    localStorage.removeItem("currentUserEmail");
+function logOutAndRedirectToHome() {
     localStorage.removeItem("currentUser");
+    localStorage.removeItem("currentUserEmail");
     window.location.href = "/";
 }
 
@@ -203,7 +208,7 @@ function addToCart(product){
 function removeFromCart(product){
     let oldCart = getCart();
     let newCart = [];
-    for(let i=0; i<oldCart.length; i++){
+    for(let i=0; i < oldCart.length; i++){
         if(oldCart[i].name !== product){
             newCart.push(oldCart[i]);
         }
@@ -269,7 +274,6 @@ function saveCart(cart){
 }
 
 
-
 function addToCartButton(){
     for(let i=0; i< buttons.length; i++){
         buttons[i].addEventListener("click", function(){
@@ -289,3 +293,8 @@ document.addEventListener("DOMContentLoaded" , function(){
         displayCart();
     }
 })
+
+const user = JSON.parse(localStorage.getItem("currentUser"));
+if(user){
+    document.getElementById("addToCartButton").style.display="inline-block"; 
+}

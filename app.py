@@ -1,6 +1,7 @@
 import flask 
 from flask import redirect, request,  url_for ,jsonify, Response , Flask
 import json
+from urllib.parse import quote
 
 #import os
 app = flask.Flask("app")
@@ -66,6 +67,16 @@ class User:
         # login failed — show error
         failedLogging = getHtml("login")
         return failedLogging.replace("$$ERROR$$", "<p style='color:red;'>Login failed: Wrong email or password</p>")
+    
+    def getUserInfo(self, email):
+        try:
+            with open("data/users.json", "r") as f:
+                users = json.load(f)
+        except(FileNotFoundError, json.JSONDecodeError):
+            users = []
+        for user in users:
+            if user["email"] == email:
+                return user 
     
     def updateUserInfo(self):
         # data = flask.request.form.to_dict()            #.get_json()parse JSON data from the body of an HTTP request (like an API) converts it into a Python dictionary
@@ -138,13 +149,26 @@ def loggedInHomePage():
 
 @app.route("/profile", methods=["GET"])
 def profilePage():
-    html = getHtml("profile")
-    return html.replace("$$ERROR$$", "")
+    email = flask.request.args.get("email")
+    user = User()
+    userData = user.getUserInfo(email)
+    if userData:
+        html = getHtml("profile")
+        html = html.replace("$$USERNAME$$", userData["username"])
+        html = html.replace("$$EMAIL$$", userData["email"])
+        html = html.replace("$$ADDRESS$$", userData["address"])
+        html = html.replace("$$PHONE$$", userData["phone"])
+        return html.replace("$$ERROR$$", "")
+    else:
+        return getHtml("login").replace("$$ERROR$$", "<p style='color:red;'>User not found</p>")
+
 #HTML Forms do not suppory put or patch or delete for update or delete 
 @app.route("/profile" , methods=["POST"])
 def updateUser():
     user = User()
     return user.updateUserInfo()
+
+
 
 @app.route("/delete", methods=["POST"])
 def deleteUserAccount():
@@ -195,21 +219,23 @@ class Devices:
         for device in devices_list: 
             # f """" = formatted string literals embed expressions directly into string literals using {}
             # i used the data- attribute so in javascript will get it by dataset.
+            # the quote library for the spaces in the name of the device to put it in teh url without spaces ht7ot mkan l space %
             html += f""" 
+            <a href="/product?name={quote(device.name)}" class="device-card-link">
                 <div class="device-card">  
                     <img src="static/images/{device.image}" alt="{device.name}" class="device-img">
                     <h3 class="device-name">{device.name}</h3>
                     <p class="device-description">{device.description}</p>
                     <p class="device-price">EGP {device.price}</p> """
             if show_cart_buttons:    
-                html += f""" <button class="add-to-cart-button"
+                html += f""" <button class="add-to-cart-button style="display:none;"
                         data-name = "{device.name}"
                         data-description = "{device.description}"
                         data-price = "{device.price}"
                         data-image = "{device.image}">
                         Add to Cart
                     </button>"""
-            html += "</div>"
+            html += "</div> </a>"
         return html
 
         
@@ -301,7 +327,6 @@ def devicesLoggedInPage():
 
 
 
-
                                                #CART
 class Cart:
     def __init__(self):
@@ -333,3 +358,19 @@ def products_json():
 def cartPage():
     html = getHtml("cart")
     return html
+
+@app.route("/product", methods=["GET"])
+def productDetails():
+    product_name = request.args.get("name")
+    devices = Devices.parse_products_file()
+
+    for device in devices:
+        if device.name.lower() == product_name.lower():
+            html = getHtml("product")
+            html = html.replace("$$NAME$$", device.name)
+            html = html.replace("$$DESCRIPTION$$", device.description)
+            html = html.replace("$$PRICE$$", device.price)
+            html = html.replace("$$IMAGE$$", f"static/images/{device.image}")
+            html = html.replace("$$CATEGORY$$", device.category.capitalize())
+            return html
+    return "<p>Product not found</p>"
