@@ -9,19 +9,17 @@ app = flask.Flask("app")
 def getHtml(pageName):
     with open(pageName + ".html") as htmlPage:
         return htmlPage.read()
-    # htmlPage = open(pageName + ".html")
-    # pageContent = htmlPage.read()
-    # htmlPage.close()
-    # return pageContent
 
                                                         # USER
 class User:
-    def __init__(self):
-        self.username = flask.request.form.get("username")    #flask-> module , request-> object , form -> property, get-> method 
-        self.password = flask.request.form.get("password")
-        self.email = flask.request.form.get("email")
-        self.address = flask.request.form.get("address")
-        self.phone = flask.request.form.get("phone")
+    def __init__(self, formData = None):
+            if formData is None:
+                formData = flask.request.form
+            self.username = formData.get("username")    #flask-> module , request-> object , form -> property, get-> method 
+            self.password = formData.get("password")
+            self.email = formData.get("email")
+            self.address = formData.get("address")
+            self.phone = formData.get("phone")
     
     def makeDictionary(self):
         dict = {
@@ -33,6 +31,14 @@ class User:
         }
         return dict 
     
+    # ord(char)  Converts the character to its ASCII code., Adds 3 to the ASCII value. Ensures the result is within the ASCII printable range (0–125). % 126 is used to wrap around if the result exceeds 125.
+    @staticmethod
+    def safeHash(text):
+        result = ""
+        for char in text:
+            result += chr((ord(char) + 3) % 126)
+        return result
+
     def saveData(self):
         # if the file not exist create one so
         try:
@@ -53,21 +59,7 @@ class User:
             with open("data/users.json", "w") as f:
                 json.dump(users, f, indent=4)                #takes python object as user list and writes it as JSON formatted text into file SO reverse of json.load()
             return redirect(url_for("logInPage"))  # redirect after success
-                    
-    def check_login(self):
-        try:
-            with open("data/users.json" , "r") as f:
-                users = json.load(f)
-        except (FileNotFoundError, json.JSONDecodeError):
-            users =[]
-        for user in users:
-            if (user["email"] == self.email) and (user["password"] == self.password):
-                return redirect(url_for('loggedInHomePage', email=self.email))
-        
-        # login failed — show error
-        failedLogging = getHtml("login")
-        return failedLogging.replace("$$ERROR$$", "<p style='color:red;'>Login failed: Wrong email or password</p>")
-    
+
     def getUserInfo(self, email):
         try:
             with open("data/users.json", "r") as f:
@@ -75,9 +67,19 @@ class User:
         except(FileNotFoundError, json.JSONDecodeError):
             users = []
         for user in users:
-            if user["email"] == email:
+            if user["email"].lower() == email.lower():
                 return user 
     
+    def fillProfileForm(self, userData, message =""):    
+        html = getHtml("profile")
+        html = html.replace("$$USERNAME$$", userData["username"])
+        html = html.replace("$$PASSWORD$$", userData["password"])
+        html = html.replace("$$EMAIL$$", userData["email"])
+        html = html.replace("$$ADDRESS$$", userData["address"])
+        html = html.replace("$$PHONE$$", userData["phone"])
+        html = html.replace("$$ERROR$$", message)
+        return html
+
     def updateUserInfo(self):
         # data = flask.request.form.to_dict()            #.get_json()parse JSON data from the body of an HTTP request (like an API) converts it into a Python dictionary
         try:
@@ -95,8 +97,10 @@ class User:
 
         with open("data/users.json" , "w") as f:
             json.dump(users, f, indent=4)
-        successPage = getHtml("profile")
-        return successPage.replace("$$ERROR$$", "<p style='color:green;'>User updated successfully</p>")
+        updatedUser = self.makeDictionary()
+        return self.fillProfileForm(updatedUser, "<p style='color:green;'>User updated successfully</p>")
+
+    
     
     def deleteUser(self):
         try:
@@ -108,14 +112,9 @@ class User:
             if user["email"] == self.email:
                 users.remove(user)
                 break
-        # updated_users=[]
-        # for user in users:
-        #     if user["email"] != self.email:
-        #         updated_users.append(user)
         with open("data/users.json", "w") as f:
             json.dump(users, f, indent=4)
         return redirect(url_for("homePage"))
-
 
 
 @app.route("/")
@@ -129,8 +128,7 @@ def signUpPage():
 @app.route("/signup", methods=["POST"])
 def signUp():
     user = User()  
-    user.saveData()
-    return redirect(url_for('logIn'))
+    return user.saveData()
 
 @app.route("/login" , methods=["GET"])
 def logInPage():
@@ -139,8 +137,26 @@ def logInPage():
 
 @app.route("/login" , methods=["POST"])
 def logIn():
-    user = User()
-    return user.check_login()
+    try:
+        data = request.get_json()
+        email = data.get('email', '').strip()
+        password = data.get('password', '').strip()
+
+
+        if not email or not password:
+            return jsonify(success=False, message="Email and password are required")
+
+        with open("data/users.json", "r") as f:
+            users = json.load(f)
+
+        for user in users:
+            if user["email"] == email and user["password"] == password:
+                return jsonify(success=True, user=user)
+
+        return jsonify(success=False, message="Invalid credentials")
+
+    except Exception as e:
+        return jsonify(success=False, message=f"Server error: {str(e)}")
 
 @app.route("/loggedInHome" , methods=["GET"])
 def loggedInHomePage():
@@ -150,15 +166,9 @@ def loggedInHomePage():
 @app.route("/profile", methods=["GET"])
 def profilePage():
     email = flask.request.args.get("email")
-    user = User()
-    userData = user.getUserInfo(email)
-    if userData:
-        html = getHtml("profile")
-        html = html.replace("$$USERNAME$$", userData["username"])
-        html = html.replace("$$EMAIL$$", userData["email"])
-        html = html.replace("$$ADDRESS$$", userData["address"])
-        html = html.replace("$$PHONE$$", userData["phone"])
-        return html.replace("$$ERROR$$", "")
+    user = User().getUserInfo(email)
+    if user:
+        return User().fillProfileForm(user, "")
     else:
         return getHtml("login").replace("$$ERROR$$", "<p style='color:red;'>User not found</p>")
 
@@ -167,7 +177,6 @@ def profilePage():
 def updateUser():
     user = User()
     return user.updateUserInfo()
-
 
 
 @app.route("/delete", methods=["POST"])
@@ -272,26 +281,7 @@ def devicesPage():
     final_html = html.replace("$$CATEGORY$$", heading).replace("$$DEVICES$$", devices_html)
     return final_html
   
-    # devices_dicts = [device.make_dictionary() for device in devices]
-    # devices_dicts = []
-    # for device in devices:
-    #     device_dict = device.make_dictionary()
-    #     devices_dicts.append(device_dict)
-    # return jsonify(devices_dicts)       #jsonify to convert the dict's to json format 
 
-
-# @app.route("/devices", methods=["GET"])
-# def category_devices():
-#     devices = Devices.parse_products_file()
-#     category = request.args.get('category').lower()
-#     filtered_category =[]
-#     for device in devices:
-#         if device.category.lower() == category:
-#             filtered_category.append(device)
-#     devices_html = Devices.display_devices_html(filtered_category)
-#     html=getHtml("devices")
-#     final_html = html.replace("$$DEVICES$$", devices_html)
-#     return final_html
 
 @app.route("/devicesLoggedIn", methods=["GET"])
 def devicesLoggedInPage():

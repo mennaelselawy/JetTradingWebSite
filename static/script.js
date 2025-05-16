@@ -1,26 +1,18 @@
-                                                   // USER //
+                                            // USER //
 const signUpForm = document.getElementById("signupForm");
 const profileForm = document.getElementById("profileForm");
 const loginForm = document.getElementById("loginForm");
 const deleteForm = document.getElementById("deleteForm");
 
 function saveUserDataToLocalStorage(){
-    //event.preventDefault(); event   //stop the default browser from submitting the form by html, So do it here manually by javascript
-    
-      //manually get the form values
+    //manually get the form values
     const username = document.getElementById("username").value.trim();
     const email = document.getElementById("email").value.trim();
-    // const password = document.getElementById("password").value;
-    // const address = document.getElementById("address").value.trim();
-    // const phone = document.getElementById("phone").value.trim();
 
     //to build an object in js as a struct in c++
     const user = {
         username,
         email,
-        // password,
-        // address,
-        // phone
     };
 
     let users= JSON.parse(localStorage.getItem("users")) || [];   //oring it with curly brackets to start with empty array if no users
@@ -36,60 +28,64 @@ if(signUpForm){
     signUpForm.addEventListener("submit", saveUserDataToLocalStorage);
 }
 
-function storeTheLoggedInUserEmail(){
-    const email = document.getElementById("email").value.trim();
-    let users = JSON.parse(localStorage.getItem("users")) || [];
-    const loggedInUser = users.find(u => u.email === email);
-    if(loggedInUser){
-        localStorage.setItem("currentUserEmail", loggedInUser.email);
-        localStorage.setItem("currentUser", JSON.stringify(loggedInUser)); 
-    }
-}
 if(loginForm){
-    loginForm.addEventListener("submit", storeTheLoggedInUserEmail);
+    loginForm.addEventListener("submit", async function(event){
+        event.preventDefault(); // prevent default form submission
+
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+        const error = document.getElementById("loginError");
+        error.textContent = ""; // clear previous error
+        error.style.display = "none"; // hide initially
+        try {
+            const response = await fetch("/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ email, password })
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                // Store user data in localStorage
+                localStorage.setItem("currentUserEmail", result.user.email);
+                localStorage.setItem("currentUser", result.user.username);
+
+                // Redirect to logged-in home page
+                window.location.href = "/loggedInHome";
+            } else {
+                error.textContent = result.message ||"Invalid credentials.";
+                error.style.display = "block";
+            }
+        } catch (error) {
+            error.textContent = "Login failed due to a network/server error.";
+            error.style.display = "block";
+        }
+    });  
 }
 
-// clear current user when browser closes
-window.addEventListener("beforeunload", function(){
-    localStorage.removeItem("currentUser");
-    localStorage.removeItem("currentUserEmail");
-})
-
-function showUserDataToEdit(){
-    // let users= JSON.parse(localStorage.getItem("users")) || [];  
-    // const currentUserEmail = localStorage.getItem("currentUserEmail");
-    // const user = users.find(u=>u.email === currentUserEmail);
-    const user = JSON.parse(localStorage.getItem("currentUser"));
-    if(user){
-        document.getElementById("username").value = user.username;
-        document.getElementById("email").value = user.email;
-        document.getElementById("password").value = user.password;
-        document.getElementById("address").value = user.address;
-        document.getElementById("phone").value = user.phone;
+function goToProfile(){
+    const email = localStorage.getItem("currentUserEmail");
+    if(email){
+        document.getElementById("profileLink").href = "/profile?email="+email;
     }
 }
 function updateUserDataToLocalStorage(){
-    const updatedUser ={
-        username: document.getElementById("username").value,
-        // password: document.getElementById("password").value,
-        email: document.getElementById("email").value,
-        // address: document.getElementById("address").value,
-        // phone: document.getElementById("phone").value
-    };
+    const updatedUsername = document.getElementById("username").value;
+    const currentEmail = localStorage.getItem("currentUserEmail");
 
     let users = JSON.parse(localStorage.getItem("users")) || [];
-    const currentEmail = localStorage.getItem("currentUserEmail");
     for(let i = 0; i< users.length; i++){
         if(users[i].email === currentEmail){
-            users[i] = updatedUser;
+            users[i].username = updatedUsername;
             break;
         }
     }
     localStorage.setItem("users" , JSON.stringify(users));
-    localStorage.setItem("currentUser", JSON.stringify(updatedUser)); 
+    localStorage.setItem("currentUser", updatedUsername); 
 }
 document.addEventListener("DOMContentLoaded", function(){
-    showUserDataToEdit();
     if(profileForm){
     profileForm.addEventListener("submit" , updateUserDataToLocalStorage);
     }
@@ -107,9 +103,9 @@ function enableEdit(fieldId) {
 }
 
 document.addEventListener("DOMContentLoaded", function(){
-    const user = JSON.parse(localStorage.getItem("currentUser"));
-    if(user){
-        document.getElementById("welcomeUser").textContent = user.username;
+    const username = localStorage.getItem("currentUser");
+    if(username){
+        document.getElementById("welcomeUser").textContent = username;
     }
 });
 
@@ -125,8 +121,7 @@ function deleteCurrentUserFromLocalStorage(){
     }
     users = newUsers;
     localStorage.setItem("users", JSON.stringify(users));
-    localStorage.removeItem("currentUserEmail");
-    localStorage.removeItem("currentUser");
+    logOutAndRedirectToHome();
 }
 function deleteAccount(){
     const currentEmail = localStorage.getItem("currentUserEmail");
@@ -142,30 +137,6 @@ if(deleteForm){
     deleteForm.addEventListener("submit", deleteAccount);
 }
 
-                                                   // DEVICES //
-// const devicesForm = document.getElementById("devicesForm");
-// function displayAllDevices(){
-//     fetch("/devices")
-//     .then(response => response.json())      /* even though Flask sends JSON, the browser receives it as a raw HTTP response */
-//     .then(data =>{
-//         const deviceList = document.getElementById("devices-grid");
-//         if(!deviceList) return;
-//         deviceList.innerHTML="";   //clear the html to append mn awl w geded myb2ash feh garbage y3ny
-//         data.forEach(device =>{
-//             const deviceDiv = document.createElement("div");
-//             deviceDiv.className ="device-div";
-//             deviceDiv.innerHTML = device.image + "<br>" 
-//             + device.name + "<br>" 
-//             + device.description + "<br>" + 
-//             "EGP"+ device.price;
-//             deviceList.appendChild(deviceDiv);
-//         })
-
-//     })
-// }
-// if(devicesForm){
-//     devicesForm.addEventListener("submit", displayAllDevices)
-// }
 
                                             // CART //
 const cartItems = document.getElementById("cart-items"); 
@@ -294,7 +265,10 @@ document.addEventListener("DOMContentLoaded" , function(){
     }
 })
 
-const user = JSON.parse(localStorage.getItem("currentUser"));
-if(user){
-    document.getElementById("addToCartButton").style.display="inline-block"; 
-}
+// const user = localStorage.getItem("currentUser");
+// if(user){
+//     document.getElementById("addToCartButton").style.display="inline-block"; 
+// }
+// else{
+//     console.log("not found")
+// }

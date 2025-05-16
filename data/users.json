@@ -1,16 +1,9 @@
 [
     {
-        "username": "Sama Ashraf",
-        "password": "1234",
-        "email": "sama@example.com",
-        "address": "apartment:20 ,building:5, street abbas ,Nasr city ,Cairo, Egypt",
-        "phone": "0101010101010"
-    },
-    {
-        "username": "Menna Elselawy",
-        "password": "5678",
+        "username": "Menousha elselway",
+        "password": "$$PASSWORD$$",
         "email": "menna@website.com",
-        "location": "apartment:10 ,building: 66 , street korba ,masr elgedida city ,Cairo, Egypt",
+        "address": "bunder alobour ibn hamido",
         "phone": "011223344556"
     },
     {
@@ -19,5 +12,12 @@
         "email": "ashraf@gmail.com",
         "address": "mohandsien, giza",
         "phone": "012587496587"
+    },
+    {
+        "username": "menna",
+        "password": "5555",
+        "email": "menna@gmail.com",
+        "address": "cairo",
+        "phone": "124578"
     }
 ]

@@ -35,7 +35,7 @@
         <button type="button" onclick="enableEdit('username')">Edit</button><br><br>
         
         <label>Password::</label> 
-        <input type="password" id="password" name="password" readonly>
+        <input type="password" id="password" name="password"value="$$PASSWORD$$" readonly>
         <button type="button" onclick="enableEdit('password')">Edit</button><br><br>
         
         <label>Email:</label> 
@@ -52,7 +52,9 @@
         
         <button type="submit">Save</button>
         <button type="button" onclick="logout()">Logout</button>
+
     </form>
+    
     <form id="deleteForm" action="/delete" method="Post"> 
         <button type="submit">Delete Account</button>
         <!-- User() class relies on getting form values (like email) via flask.request.form.get().SO If your deleteForm only contains a submit button, then no actual form fields (like email) are posted, so user.email becomes None. This causes the backend to fail to find a user and remove them.  -->

@@ -8,6 +8,51 @@
     <link rel="stylesheet" href="static/style.css">
 </head>
 <body>
+    <header class="main-header">
+        <div class="top-row">
+            <div class="logo">
+                <a href="/"><img src="static/images/jetTradingLogo.png" alt="Jet Trading Logo"></a>
+            </div>
+            
+            <div class="nav-buttons">
+                <div class="dropdown">
+                    <!-- <form id="devicesForm">
+                        <button type="submit" class="dropdown-button">Devices</button>
+                    </form> -->
+                    <a href="/devicesLoggedIn"><button class="dropdown-button">Devices</button></a>
+                    <div class="dropdown-content">
+                        <a href="/devicesLoggedIn?category=laptops">Laptops</a>
+                        <a href="/devicesLoggedIn?category=printers">Printers</a>
+                        <a href="/devicesLoggedIn?category=tablets">Tablets</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <button class="dropdown-button">Accesssories</button>
+                    <div class="dropdown-content">
+                        <a href="#">Cables</a>
+                        <a href="#">Bags</a>
+                        <a href="#">Head-Phones</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <button class="dropdown-button">About</button>
+                    <div class="dropdown-content">
+                        <a href="#">Our Story</a>
+                        <a href="#">Contact</a>
+                    </div>
+                </div>
+            </div>
+            <div class="search-row">
+            <form class="search-form" action="/devices" method="get">
+                <input type="text" name="query" placeholder="Search for products..." required>  <!-- required prevents the form from submitting if the input is empty -->
+                <button type="submit" class="search-button">
+                    <img src="/static/images/search.png" alt="Search">
+                </button>
+            </form>
+        </div>
+    </header>
     <h2>Sign Up</h2>
     $$ERROR$$
     <!-- action and method here to refresh the page and send the data to the server (backend) when submit -->
