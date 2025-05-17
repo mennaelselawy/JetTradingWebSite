@@ -13,54 +13,102 @@
     <header class="main-header">
         <div class="top-row">
             <div class="logo">
-                <a href="/"><img src="static/images/jetTradingLogo.png" alt="Jet Trading Logo"></a>
+                <a href="#" onclick="logOutAndRedirectToHome()">
+                    <img src="static/images/jetTradingLogo.png" alt="Jet Trading Logo">
+                </a>
             </div>
-            
-            <div class="nav-buttons">
-                <button>Devices</button>
-                <button>Accessories</button>
-                <button>About</button>
-            </div>
-        </div>
-        <div class="search-row">
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item dropdown">
+                        <a href="/devices" class="nav-link">Devices</a>
+                        <div class="dropdown-menu">
+                            <a href="/devices?category=laptops" class="dropdown-item">Laptops</a>
+                            <a href="/devices?category=printers" class="dropdown-item">Printers</a>
+                            <a href="/devices?category=tablets" class="dropdown-item">Tablets</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link">Accessories</a>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item">Cables</a>
+                            <a href="#" class="dropdown-item">Bags</a>
+                            <a href="#" class="dropdown-item">Headphones</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link">About</a>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item">Our Story</a>
+                            <a href="#" class="dropdown-item">Contact</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
 
+            <div class="search-row">
+                <form class="search-form" action="/devices" method="get">
+                    <input type="text" name="query" placeholder="Search for products..." required>  <!-- required prevents the form from submitting if the input is empty -->
+                    <button type="submit" class="search-button">
+                        <img src="/static/images/search.png" alt="Search">
+                    </button>
+                </form>
+                <button type="button" onclick="logOutAndRedirectToHome()" class="logout-button">Logout</button>
+            </div>
         </div>
-    </header>
+    </header> 
 
     <h2 class="h2">User Profile</h2>
-    $$ERROR$$
+    
     <form id="profileForm" action="/profile" method="POST">    <!-- method="POST" class="profilePageForm" -->
-        <label >Username:</label> 
-        <input type="text" id="username" name="username" value="$$USERNAME$$" readonly>
-        <button type="button" onclick="enableEdit('username')">Edit</button><br><br>
+        <div class="form-group">
+            <label >Username:</label> 
+            <div class="input-group">
+                <input type="text" id="username" name="username" value="$$USERNAME$$" readonly>
+                <button type="button" onclick="enableEdit('username')" class="edit-button">Edit</button>
+            </div> 
+        </div> 
         
-        <label>Password::</label> 
-        <input type="password" id="password" name="password"value="$$PASSWORD$$" readonly>
-        <button type="button" onclick="enableEdit('password')">Edit</button><br><br>
-        
-        <label>Email:</label> 
-        <input type="text" id="email" name="email" value="$$EMAIL$$" readonly> <br><br>
-        <!-- <button type="button" onclick="enableEdit('email')">Edit</button><br><br> -->
-        
-        <label>Address:</label> 
-        <input type="text" id="address" name="address" value="$$ADDRESS$$" readonly>
-        <button type="button" onclick="enableEdit('address')">Edit</button><br><br>
-        
-        <label>Phone:</label> 
-        <input type="text" id="phone" name="phone" value="$$PHONE$$" readonly>
-        <button type="button" onclick="enableEdit('phone')">Edit</button><br><br>
-        
-        <button type="submit">Save</button>
-        <button type="button" onclick="logOutAndRedirectToHome()">Logout</button>
+        <div class="form-group">
+            <label>Password::</label> 
+            <div class="input-group">
+                <input type="password" id="password" name="password"value="$$PASSWORD$$" readonly>
+                <button type="button" onclick="enableEdit('password')" class="edit-button">Edit</button>
+            </div>
+        </div>
 
+        <div class="form-group">
+            <label>Email:</label> 
+            <div class="input-group">
+                <input type="text" id="email" name="email" value="$$EMAIL$$" readonly>
+            </div>
+        </div>
+            <div class="form-group">
+            <label>Address:</label> 
+            <div class="input-group">
+                <input type="text" id="address" name="address" value="$$ADDRESS$$" readonly>
+                <button type="button" onclick="enableEdit('address')" class="edit-button">Edit</button>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Phone:</label> 
+            <div class="input-group">
+                <input type="text" id="phone" name="phone" value="$$PHONE$$" readonly>
+                <button type="button" onclick="enableEdit('phone')" class="edit-button">Edit</button>
+            </div>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="save-button">Save</button>
+        </div>
+        <p id="profileError" style="color: red;" class="error-message">
+            $$ERROR$$
+        </p>
     </form>
     
-    <form id="deleteForm" action="/delete" method="Post"> 
-        <button type="submit">Delete Account</button>
+    <form id="deleteForm" action="/delete" method="Post" class="delete-form"> 
+        <button type="submit" class="delete-button">Delete Account</button>
         <!-- User() class relies on getting form values (like email) via flask.request.form.get().SO If your deleteForm only contains a submit button, then no actual form fields (like email) are posted, so user.email becomes None. This causes the backend to fail to find a user and remove them.  -->
         <input type="hidden" id="deleteEmail" name="email"value="">
     </form>
-    <a href="javascript:history.back()" class="back-button">Back</a>
     <script src="static/script.js"></script>
 </body>
 </html>

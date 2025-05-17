@@ -11,50 +11,50 @@
     <header class="main-header">
         <div class="top-row">
             <div class="logo">
-                <a href="/"><img src="static/images/jetTradingLogo.png" alt="Jet Trading Logo"></a>
+                <a href="#" onclick="logOutAndRedirectToHome()">
+                    <img src="static/images/jetTradingLogo.png" alt="Jet Trading Logo">
+                </a>
             </div>
-            
-            <div class="nav-buttons">
-                <div class="dropdown">
-                    <!-- <form id="devicesForm">
-                        <button type="submit" class="dropdown-button">Devices</button>
-                    </form> -->
-                    <a href="/devices"><button class="dropdown-button">Devices</button></a>
-                    <div class="dropdown-content">
-                        <a href="/devices?category=laptops">Laptops</a>
-                        <a href="/devices?category=printers">Printers</a>
-                        <a href="/devices?category=tablets">Tablets</a>
-                    </div>
-                </div>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item dropdown">
+                        <a href="/devices" class="nav-link">Devices</a>
+                        <div class="dropdown-menu">
+                            <a href="/devices?category=laptops" class="dropdown-item">Laptops</a>
+                            <a href="/devices?category=printers" class="dropdown-item">Printers</a>
+                            <a href="/devices?category=tablets" class="dropdown-item">Tablets</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link">Accessories</a>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item">Cables</a>
+                            <a href="#" class="dropdown-item">Bags</a>
+                            <a href="#" class="dropdown-item">Headphones</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link">About</a>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item">Our Story</a>
+                            <a href="#" class="dropdown-item">Contact</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
 
-                <div class="dropdown">
-                    <button class="dropdown-button">Accesssories</button>
-                    <div class="dropdown-content">
-                        <a href="#">Cables</a>
-                        <a href="#">Bags</a>
-                        <a href="#">Head-Phones</a>
-                    </div>
-                </div>
-
-                <div class="dropdown">
-                    <button class="dropdown-button">About</button>
-                    <div class="dropdown-content">
-                        <a href="#">Our Story</a>
-                        <a href="#">Contact</a>
-                    </div>
-                </div>
+            <div class="search-row">
+                <form class="search-form" action="/devices" method="get">
+                    <input type="text" name="query" placeholder="Search for products..." required>  <!-- required prevents the form from submitting if the input is empty -->
+                    <button type="submit" class="search-button">
+                        <img src="/static/images/search.png" alt="Search">
+                    </button>
+                </form>
             </div>
-            </div>
-        <div class="search-row">
-            <form class="search-form" action="/devices" method="get">
-                <input type="text" name="query" placeholder="Search for products..." required>  <!-- required prevents the form from submitting if the input is empty -->
-                <button type="submit" class="search-button">
-                    <img src="/static/images/search.png" alt="Search">
-                </button>
-            </form>
         </div>
+    </header> 
+
     <h2>Log In</h2>
-    $$ERROR$$
     <!-- action and method here to refresh the page and send the data to the server (backend) when submit -->
     <form id="loginForm" > 
         <label for="email">Enter your email:</label><br>
@@ -62,10 +62,11 @@
         <label for="password">Enter your password:</label><br>
         <input type="password" name="password" id="password" placeholder="enter your password..." required><br>
         <button type="submit">Log In</button>
-        <p id="loginError" style="color: red;"></p>
+        <p id="loginError" style="color: red;">
+            
+        </p>
     </form>
     <p>Don't have an account? <a href="/signup">Sign Up</a> </p>
-    <a href="javascript:history.back()" class="back-button">Back</a>
     <script src="static/script.js"></script>
 </body>
 </html>

@@ -8,10 +8,58 @@
     <link rel="stylesheet" href="static/style.css">
 </head>
 <body>
-    <h1>Your Cart</h1>
-    <div id="cart-items"></div>
-    <button onclick="clearCart()">Clear Cart</button>
-    <a href="javascript:history.back()" class="back-button">Back</a>
+    <header class="main-header">
+        <div class="top-row">
+            <div class="logo">
+                <a href="#" onclick="logOutAndRedirectToHome()">
+                    <img src="static/images/jetTradingLogo.png" alt="Jet Trading Logo">
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item dropdown">
+                        <a href="/devicesLoggedIn" class="nav-link">Devices</a>
+                        <div class="dropdown-menu">
+                            <a href="/devicesLoggedIn?category=laptops" class="dropdown-item">Laptops</a>
+                            <a href="/devicesLoggedIn?category=printers" class="dropdown-item">Printers</a>
+                            <a href="/devicesLoggedIn?category=tablets" class="dropdown-item">Tablets</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link">Accessories</a>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item">Cables</a>
+                            <a href="#" class="dropdown-item">Bags</a>
+                            <a href="#" class="dropdown-item">Headphones</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link">About</a>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item">Our Story</a>
+                            <a href="#" class="dropdown-item">Contact</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <div class="cart-and-profile">
+                <div class="profile">
+                    <a href="#" onclick="goToProfile()" id="profileLink">   
+                        <img src="static/images/profile.png" alt="Profile Icon" style="width: 40px; height: 40px;">
+                        <div>Profile</div>
+                    </a>   
+                </div>
+                <button type="button" onclick="logOutAndRedirectToHome()" class="logout-button">Logout</button>
+            </div>
+        </div>
+    </header>
+     <div class="product-detail-div">
+        <h1 class="category-title">Your Cart</h1>
+        <div id="cart-items" class="cart-items-container"></div>
+        <div class="form-action">
+            <button onclick="clearCart()" class="delete-button">Clear Cart</button>
+        </div>
+     </div>
     <script src="static/script.js"></script>
 </body>
 </html>

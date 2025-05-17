@@ -11,59 +11,62 @@
     <header class="main-header">
         <div class="top-row">
             <div class="logo">
-                <a href="/"><img src="static/images/jetTradingLogo.png" alt="Jet Trading Logo"></a>
+                <a href="#" onclick="logOutAndRedirectToHome()">
+                    <img src="static/images/jetTradingLogo.png" alt="Jet Trading Logo">
+                </a>
             </div>
             
-            <div class="nav-buttons">
-                <div class="dropdown">
-                    <a href="/devicesLoggedIn"><button class="dropdown-button">Devices</button></a>
-                    <div class="dropdown-content">
-                        <a href="/devicesLoggedIn?category=laptops">Laptops</a>
-                        <a href="/devicesLoggedIn?category=printers">Printers</a>
-                        <a href="/devicesLoggedIn?category=tablets">Tablets</a>
-                    </div>
-                </div>
-
-                <div class="dropdown">
-                    <button class="dropdown-button">Accesssories</button>
-                    <div class="dropdown-content">
-                        <a href="#">Cables</a>
-                        <a href="#">Bags</a>
-                        <a href="#">Head-Phones</a>
-                    </div>
-                </div>
-
-                <div class="dropdown">
-                    <button class="dropdown-button">About</button>
-                    <div class="dropdown-content">
-                        <a href="#">Our Story</a>
-                        <a href="#">Contact</a>
-                    </div>
-                </div>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item dropdown">
+                        <a href="/devicesLoggedIn" class="nav-link">Devices</a>
+                        <div class="dropdown-menu">
+                            <a href="/devicesLoggedIn?category=laptops" class="dropdown-item">Laptops</a>
+                            <a href="/devicesLoggedIn?category=printers" class="dropdown-item">Printers</a>
+                            <a href="/devicesLoggedIn?category=tablets" class="dropdown-item">Tablets</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link">Accessories</a>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item">Cables</a>
+                            <a href="#" class="dropdown-item">Bags</a>
+                            <a href="#" class="dropdown-item">Headphones</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link">About</a>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item">Our Story</a>
+                            <a href="#" class="dropdown-item">Contact</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <div class="search-row">
+                <form class="search-form" action="/devices" method="get">
+                    <input type="text" name="query" placeholder="Search for products..." required>  <!-- required prevents the form from submitting if the input is empty -->
+                    <button type="submit" class="search-button">
+                        <img src="/static/images/search.png" alt="Search">
+                    </button>
+                </form>
             </div>
-            
-            <div class="profile">
-                <!-- PROFILE TO EDIT  -->
-                <a href="#" onclick="goToProfile()" id="profileLink">             <!-- style:text-decoration:none      to remove the blue and underline of a link -->
-                <img src="static/images/profile.png" alt="Profile Icon" style="width: 40px; height: 40px;">
-                 <div>Profile</div>
-                </a>   
+            <div class="cart-and-profile">
+                <div class="cart-icon" onclick="goToCart()">
+                    <img src="static/images/cart-icon.png" class="add-to-cart-icon">
+                    <div>Cart</div> 
+                </div>
+                <div class="profile">
+                    <a href="#" onclick="goToProfile()" id="profileLink">   
+                        <img src="static/images/profile.png" alt="Profile Icon" style="width: 40px; height: 40px;">
+                        <div>Profile</div>
+                    </a>   
+                </div>
+                <button type="button" onclick="logOutAndRedirectToHome()" class="logout-button">Logout</button>
             </div>
-        </div>
-        <div class="search-row">
-            <form class="search-form" action="/devices" method="get">
-                <input type="text" name="query" placeholder="Search for products..." required>  <!-- required prevents the form from submitting if the input is empty -->
-                <button type="submit" class="search-button">
-                    <img src="/static/images/search.png" alt="Search">
-                </button>
-            </form>
-            <img src="static/images/cart-icon.png" onclick="goToCart()" class="add-to-cart-icon" >
-            <button type="button" onclick="logOutAndRedirectToHome()">Logout</button>
         </div>
     </header>
     <div class="loggedin">
-        <!-- 3AYZA A7OT L USERNAME MN L JAVA SCRIPT HOWA KEDA HAYKON SAVED IN LOCAL STORAGE W A2OL MSLN WELCOM USERNAME
-         a3mlha mn text file i guess -->
         <h2>Welcome, <span id="welcomeUser"></span>!</h2>
     </div>
     <div id="devices_categories">

@@ -177,7 +177,7 @@ def signUp():
 @app.route("/login" , methods=["GET"])
 def logInPage():
     html = getHtml("login")
-    return html.replace("$$ERROR$$" , "")
+    return html
 
 @app.route("/login" , methods=["POST"])
 def logIn():

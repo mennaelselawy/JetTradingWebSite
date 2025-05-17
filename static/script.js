@@ -221,15 +221,19 @@ function displayCart(){
             const img = document.createElement("img");
             img.src = "static/images/" + item.image;
             img.alt = item.name;
+            img.className="cart-item-img";
 
             const name = document.createElement("h3");
             name.textContent = item.name;
+            name.className="cart-item-name";
 
             const description = document.createElement("p");
             description.textContent = item.description;
+            description.className="cart-item-description"
 
             const price = document.createElement("p");
             price.textContent = "EGP" + item.price;
+            price.className="cart-item-price";
 
             const button = document.createElement("button");
             button.textContent = "Remove";

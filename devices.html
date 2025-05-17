@@ -62,12 +62,16 @@
             </div>
         </div>
     </header>
-
-    <h1 class="heading-all-devices">$$CATEGORY$$</h1>
-    <div class="devices-grid">
-        $$DEVICES$$
-    </div>
-    <a href="javascript:history.back()" class="back-button">Back to Home</a>
+    <main class="devices-container">
+        <nav class="breadcrumbs">
+            <a href="/">Home</a> > <span>$$CATEGORY$$</span>
+        </nav>
+        <h1 class="heading-all-devices">$$CATEGORY$$</h1>
+        <div class="devices-grid">
+            $$DEVICES$$
+        </div>
+    </main>
+    
     <script src="static/script.js"></script>
 </body>
 </html>
