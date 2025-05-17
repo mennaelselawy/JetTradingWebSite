@@ -1,23 +1,16 @@
 [
     {
-        "username": "Menousha elselway",
-        "password": "$$PASSWORD$$",
-        "email": "menna@website.com",
-        "address": "bunder alobour ibn hamido",
-        "phone": "011223344556"
-    },
-    {
-        "username": "ashraf",
-        "password": "elselawy",
-        "email": "ashraf@gmail.com",
-        "address": "mohandsien, giza",
-        "phone": "012587496587"
-    },
-    {
-        "username": "menna",
-        "password": "5555",
+        "username": "Manousha",
+        "password": "456789:;",
         "email": "menna@gmail.com",
-        "address": "cairo",
-        "phone": "124578"
+        "address": "bunder al obour",
+        "phone": "01094952599"
+    },
+    {
+        "username": "sama",
+        "password": "<;:987654",
+        "email": "sama@org.com",
+        "address": "cairo, egypt",
+        "phone": "01092639792"
     }
 ]

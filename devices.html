@@ -13,49 +13,53 @@
             <div class="logo">
                 <a href="/"><img src="static/images/jetTradingLogo.png" alt="Jet Trading Logo"></a>
             </div>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item dropdown">
+                        <a href="/devices" class="nav-link">Devices</a>
+                        <div class="dropdown-menu">
+                            <a href="/devices?category=laptops" class="dropdown-item">Laptops</a>
+                            <a href="/devices?category=printers" class="dropdown-item">Printers</a>
+                            <a href="/devices?category=tablets" class="dropdown-item">Tablets</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link">Accessories</a>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item">Cables</a>
+                            <a href="#" class="dropdown-item">Bags</a>
+                            <a href="#" class="dropdown-item">Headphones</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link">About</a>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item">Our Story</a>
+                            <a href="#" class="dropdown-item">Contact</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <div class="search-row">
+                <form class="search-form" action="/devices" method="get">
+                    <input type="text" name="query" placeholder="Search for products..." required>  <!-- required prevents the form from submitting if the input is empty -->
+                    <button type="submit" class="search-button">
+                        <img src="/static/images/search.png" alt="Search">
+                    </button>
+                </form>
+            </div>
+
+            <div class="cart-and-auth">
+                <a href="/login" class="add-to-cart-link">
+                <img src="static/images/cart-icon.png" class="add-to-cart-icon" alt="Add to cart" style="width:35px; height:35px">
+                <div>Cart</div>    
+                </a> 
             
-            <div class="nav-buttons">
-                <div class="dropdown">
-                    <!-- <form id="devicesForm">
-                        <button type="submit" class="dropdown-button">Devices</button>
-                    </form> -->
-                    <a href="/devices"><button class="dropdown-button">Devices</button></a>
-                    <div class="dropdown-content">
-                        <a href="/devices?category=laptops">Laptops</a>
-                        <a href="/devices?category=printers">Printers</a>
-                        <a href="/devices?category=tablets">Tablets</a>
-                    </div>
-                </div>
-
-                <div class="dropdown">
-                    <button class="dropdown-button">Accesssories</button>
-                    <div class="dropdown-content">
-                        <a href="#">Cables</a>
-                        <a href="#">Bags</a>
-                        <a href="#">Head-Phones</a>
-                    </div>
-                </div>
-
-                <div class="dropdown">
-                    <button class="dropdown-button">About</button>
-                    <div class="dropdown-content">
-                        <a href="#">Our Story</a>
-                        <a href="#">Contact</a>
-                    </div>
+                <div class="auth-links">
+                    <a href="login" class="auth-btn login-btn">Login</a> 
+                    <a href="signup" class="auth-btn signup-btn">Register</a>
                 </div>
             </div>
-            <div class="auth-links">
-                <a href="login">Login</a> 
-                <a href="signup">Register</a>
-            </div>
-        </div>
-        <div class="search-row">
-            <form class="search-form" action="/devices" method="get">
-                <input type="text" name="query" placeholder="Search for products..." required>  <!-- required prevents the form from submitting if the input is empty -->
-                <button type="submit" class="search-button">
-                    <img src="/static/images/search.png" alt="Search">
-                </button>
-            </form>
         </div>
     </header>
 

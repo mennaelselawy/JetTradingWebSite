@@ -8,18 +8,28 @@ function saveUserDataToLocalStorage(){
     //manually get the form values
     const username = document.getElementById("username").value.trim();
     const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const address = document.getElementById("address").value.trim();
+    const phone = document.getElementById("phone").value.trim();
 
-    //to build an object in js as a struct in c++
-    const user = {
-        username,
-        email,
-    };
-
+    let valid = true
     let users= JSON.parse(localStorage.getItem("users")) || [];   //oring it with curly brackets to start with empty array if no users
-
     //check if user already exist by email so not to save it 
     const existingUser = users.find(u => u.email === email);
-    if(!existingUser){
+    if( password.length < 8 ||
+        !(email.endsWith("@gmail.com")|| email.endsWith("@org.com")) ||
+        address.length < 10 ||
+        !(phone.length === 11 && phone.startsWith("01")) ||
+        existingUser )
+    {
+        valid = false;
+    }
+    if(valid){
+        //to build an object in js as a struct in c++
+        const user = {
+            username,
+            email
+        };
         users.push(user);
         localStorage.setItem("users", JSON.stringify(users));
     }
@@ -265,10 +275,3 @@ document.addEventListener("DOMContentLoaded" , function(){
     }
 })
 
-// const user = localStorage.getItem("currentUser");
-// if(user){
-//     document.getElementById("addToCartButton").style.display="inline-block"; 
-// }
-// else{
-//     console.log("not found")
-// }

@@ -15,30 +15,66 @@ class User:
     def __init__(self, formData = None):
             if formData is None:
                 formData = flask.request.form
-            self.username = formData.get("username")    #flask-> module , request-> object , form -> property, get-> method 
-            self.password = formData.get("password")
-            self.email = formData.get("email")
-            self.address = formData.get("address")
-            self.phone = formData.get("phone")
+            self.username = formData.get("username")  #flask-> module , request-> object , form -> property, get-> method 
+            self.password = formData.get("password", "").strip()
+            self.email = formData.get("email", "" ).strip()
+            self.address = formData.get("address", "").strip()
+            self.phone = formData.get("phone", "").strip()
+
+    @staticmethod
+    def safeHash(text):
+        printable_chars = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
+        result = ""
+        for ch in text:
+            found = False
+            i = 0
+            while i < 95:
+                if printable_chars[i] == ch:
+                    found = True
+                    break
+                i += 1
+
+            if found:
+                shifted_index = (i + 3) % 95  # Shift by 3 and wrap around
+                result = result + printable_chars[shifted_index]
+            else:
+                result = result + ch  # if not in printable, leave it
+        return result
     
+    @staticmethod
+    def safeUnhash(text):
+        printable_chars = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
+        result = ""
+
+        for ch in text:
+            # Find index of ch manually
+            found = False
+            i = 0
+            while i < 95:
+                if printable_chars[i] == ch:
+                    found = True
+                    break
+                i += 1
+
+            if found:
+                shifted_index = (i - 3 + 95) % 95  # Subtract 3 and wrap
+                result = result + printable_chars[shifted_index]
+            else:
+                result = result + ch
+
+        return result
+
+
     def makeDictionary(self):
         dict = {
             "username": self.username,
-            "password": self.password,
+            "password": User.safeHash(self.password),
             "email": self.email,
             "address": self.address,
             "phone": self.phone
         }
         return dict 
     
-    # ord(char)  Converts the character to its ASCII code., Adds 3 to the ASCII value. Ensures the result is within the ASCII printable range (0–125). % 126 is used to wrap around if the result exceeds 125.
-    @staticmethod
-    def safeHash(text):
-        result = ""
-        for char in text:
-            result += chr((ord(char) + 3) % 126)
-        return result
-
     def saveData(self):
         # if the file not exist create one so
         try:
@@ -47,18 +83,26 @@ class User:
         except (FileNotFoundError , json.JSONDecodeError):
             users = [] #file does not exist or empty so i will start with empty list
         
+        failedSignUp = getHtml("signup")
         #CHECK THAT THE USER NOT ALREADY EXIST BY EMAIL
-        if any(user["email"] == self.email for user in users) :
-            failedSignUp = getHtml("signup")
+        if any(user["email"].lower() == self.email.lower() for user in users) :
             return failedSignUp.replace("$$ERROR$$", "<p style='color:red;'>Sign Up Failed: User already exists</p>")
-
-        else:
+            
+        if len(self.password) < 8:
+            return failedSignUp.replace("$$ERROR$$", "<p style='color:red;'>Password must not be less than 8 characters</p>")
+        if not (self.email.endswith("@gmail.com") or self.email.endswith("@org.com")):
+            return failedSignUp.replace("$$ERROR$$", "<p style='color:red;'>Invalid email domain</p>")
+        if len(self.address)< 10:
+            return failedSignUp.replace("$$ERROR$$", "<p style='color:red;'>Invalid address: address must be more than 10</p>")
             #append the new user: to add in the python list in memory not in the file
-            users.append(self.makeDictionary())
-            #to write the new user in the file
-            with open("data/users.json", "w") as f:
+        if not (self.phone.isdigit() and len(self.phone) == 11 and self.phone.startswith("01")):
+            return failedSignUp.replace("$$ERROR$$", "<p style='color:red;'>Invalid Phone number</p>")
+        
+        users.append(self.makeDictionary())
+        #to write the new user in the file
+        with open("data/users.json", "w") as f:
                 json.dump(users, f, indent=4)                #takes python object as user list and writes it as JSON formatted text into file SO reverse of json.load()
-            return redirect(url_for("logInPage"))  # redirect after success
+        return redirect(url_for("logInPage"))  # redirect after success
 
     def getUserInfo(self, email):
         try:
@@ -73,7 +117,7 @@ class User:
     def fillProfileForm(self, userData, message =""):    
         html = getHtml("profile")
         html = html.replace("$$USERNAME$$", userData["username"])
-        html = html.replace("$$PASSWORD$$", userData["password"])
+        html = html.replace("$$PASSWORD$$", User.safeUnhash(userData["password"]))
         html = html.replace("$$EMAIL$$", userData["email"])
         html = html.replace("$$ADDRESS$$", userData["address"])
         html = html.replace("$$PHONE$$", userData["phone"])
@@ -150,7 +194,7 @@ def logIn():
             users = json.load(f)
 
         for user in users:
-            if user["email"] == email and user["password"] == password:
+            if user["email"] == email and user["password"] == User.safeHash(password):
                 return jsonify(success=True, user=user)
 
         return jsonify(success=False, message="Invalid credentials")
@@ -166,6 +210,7 @@ def loggedInHomePage():
 @app.route("/profile", methods=["GET"])
 def profilePage():
     email = flask.request.args.get("email")
+
     user = User().getUserInfo(email)
     if user:
         return User().fillProfileForm(user, "")
@@ -246,75 +291,48 @@ class Devices:
                     </button>"""
             html += "</div> </a>"
         return html
+    
+    @staticmethod
+    def devicesPageHtml(pageName , showCartButtons):
+        devices = Devices.parse_products_file()
+        category = request.args.get('category')
+        query = request.args.get('query')
+        heading =""
+        filtered = []
+        if query:
+            heading = f"Results of {query}"
+            query = query.lower()
+            for device in devices:
+                if query in device.name.lower() or query in device.description.lower():
+                    filtered.append(device)
+        elif category:
+            heading = category.capitalize()
+            category = category.lower()
+            for device in devices:
+                if device.category.lower() == category:
+                    filtered.append(device)  
+        else:
+            filtered = devices
+            heading = "All Devices"
+
+        devices_html = Devices.display_devices_html(filtered, showCartButtons)
+            
+        if not devices_html:
+            devices_html = "<p class='no-results'>No devices found.</p>"
+            
+        html = getHtml(pageName)
+        final_html = html.replace("$$CATEGORY$$", heading).replace("$$DEVICES$$", devices_html)
+        return final_html
+
 
         
 @app.route("/devices", methods=["GET"])
 def devicesPage():
-    devices = Devices.parse_products_file()
-    category = request.args.get('category')
-    query = request.args.get('query')
-    heading =""
-    filtered = []
-    if query:
-        heading = f"Results of {query}"
-        query = query.lower()
-        for device in devices:
-            if query in device.name.lower() or query in device.description.lower():
-                filtered.append(device)
-    
-    elif category:
-        heading = category.capitalize()
-        category = category.lower()
-        for device in devices:
-            if device.category.lower() == category:
-                filtered.append(device)  
-    else:
-        filtered = devices
-        heading = "All Devices"
-
-    devices_html = Devices.display_devices_html(filtered, show_cart_buttons=False)
-    
-    if not devices_html:
-        devices_html = "<p class='no-results'>No devices found.</p>"
-    
-    html = getHtml("devices")
-    final_html = html.replace("$$CATEGORY$$", heading).replace("$$DEVICES$$", devices_html)
-    return final_html
-  
-
+    return Devices.devicesPageHtml("devices", showCartButtons =False)
 
 @app.route("/devicesLoggedIn", methods=["GET"])
 def devicesLoggedInPage():
-    devices = Devices.parse_products_file()
-    category = request.args.get('category')
-    query = request.args.get('query')
-    heading =""
-    filtered = []
-    if query:
-        heading = f"Results of {query}"
-        query = query.lower()
-        for device in devices:
-            if query in device.name.lower() or query in device.description.lower():
-                filtered.append(device)
-    
-    elif category:
-        heading = category.capitalize()
-        category = category.lower()
-        for device in devices:
-            if device.category.lower() == category:
-                 filtered.append(device)  
-    else:
-        filtered = devices
-        heading = "All Devices"
-
-    devices_html = Devices.display_devices_html(filtered, show_cart_buttons=True)
-    if not devices_html:
-        devices_html = "<p class='no-results'>No devices found.</p>"
-    
-    html = getHtml("devicesLoggedIn")
-    final_html = html.replace("$$CATEGORY$$", heading).replace("$$DEVICES$$", devices_html)
-    return final_html
-
+    return Devices.devicesPageHtml("devicesLoggedIn", showCartButtons =True)
 
 
                                                #CART
