@@ -237,6 +237,7 @@ function displayCart(){
 
             const button = document.createElement("button");
             button.textContent = "Remove";
+            button.className ="cart-item-remove-button";
             button.onclick = function(){
                 removeFromCart(item.name);
             };

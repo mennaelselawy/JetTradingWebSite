@@ -23,47 +23,27 @@ class User:
 
     @staticmethod
     def safeHash(text):
-        printable_chars = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
         result = ""
         for ch in text:
-            found = False
-            i = 0
-            while i < 95:
-                if printable_chars[i] == ch:
-                    found = True
-                    break
-                i += 1
-
-            if found:
-                shifted_index = (i + 3) % 95  # Shift by 3 and wrap around
-                result = result + printable_chars[shifted_index]
+            code = ord(ch)
+            if 32 <= code <= 126:
+                shifted = 32 + ((code -32 +3) % 95)
+                result += chr(shifted)
             else:
-                result = result + ch  # if not in printable, leave it
+                result += ch
         return result
     
     @staticmethod
     def safeUnhash(text):
-        printable_chars = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
         result = ""
-
         for ch in text:
-            # Find index of ch manually
-            found = False
-            i = 0
-            while i < 95:
-                if printable_chars[i] == ch:
-                    found = True
-                    break
-                i += 1
-
-            if found:
-                shifted_index = (i - 3 + 95) % 95  # Subtract 3 and wrap
-                result = result + printable_chars[shifted_index]
+            code = ord(ch)
+            if 32<= code <= 126:
+                shifted = 32 +((code -32 -3)%95)
+                result += chr(shifted)
             else:
-                result = result + ch
-
+                result += ch
         return result
-
 
     def makeDictionary(self):
         dict = {
@@ -275,9 +255,10 @@ class Devices:
             # i used the data- attribute so in javascript will get it by dataset.
             # the quote library for the spaces in the name of the device to put it in teh url without spaces ht7ot mkan l space %
             html += f""" 
-            <a href="/product?name={quote(device.name)}" class="device-card-link">
-                <div class="device-card">  
-                    <img src="static/images/{device.image}" alt="{device.name}" class="device-img">
+                <div class="device-card "device-card-link"" >  
+                   <a href="/product?name={quote(device.name)}">
+                     <img src="static/images/{device.image}" alt="{device.name}" class="device-img">
+                    </a>
                     <h3 class="device-name">{device.name}</h3>
                     <p class="device-description">{device.description}</p>
                     <p class="device-price">EGP {device.price}</p> """
@@ -289,7 +270,7 @@ class Devices:
                         data-image = "{device.image}">
                         Add to Cart
                     </button>"""
-            html += "</div> </a>"
+            html += "</div> "
         return html
     
     @staticmethod

@@ -12,5 +12,19 @@
         "email": "sama@org.com",
         "address": "cairo, egypt",
         "phone": "01092639792"
+    },
+    {
+        "username": "jana",
+        "password": "mdqddvkudi",
+        "email": "jana@gmail.com",
+        "address": "berlin, germany",
+        "phone": "01548963278"
+    },
+    {
+        "username": "Ashraf",
+        "password": "dvkudihovhodz|",
+        "email": "ashraf@org.com",
+        "address": "madrid, spain",
+        "phone": "01587965412"
     }
 ]

@@ -421,7 +421,9 @@ form input[readonly] {
 button,
 input[type="button"],
 input[type="submit"], 
-.button {
+.button,
+.add-to-cart-button ,
+.cart-item-remove-button{
     color: white;
     border: none;
     border-radius: 6px;
@@ -435,13 +437,16 @@ input[type="submit"],
 #loginForm button[type="submit"],
 #signupForm button[type="submit"],
 #profileForm button[type="submit"],
-.logout-button {
+.logout-button ,
+.cart-item-actions .delete-button ,
+.add-to-cart-button{
     background-color: #e0922f;
     margin: 15px auto;
     display:block;
 } 
 .edit-button, 
-button[onclick^="enableEdit"]{
+button[onclick^="enableEdit"],
+.cart-item-actions .edit-button {
     background-color: #3498db;
     padding: 8px 15px;
     font-size: 14px;
@@ -449,7 +454,8 @@ button[onclick^="enableEdit"]{
     display: inline-block; /* For proper alignment with inputs */
 }
 .delete-button,
-#deleteForm button {
+#deleteForm button ,
+.cart-item-remove-button{
     background-color: #e74c3c;
     padding: 12px 30px;
     margin: 20px auto 50px;
@@ -458,7 +464,9 @@ button[onclick^="enableEdit"]{
 button:hover,
 input[type="button"]:hover,
 input[type="submit"]:hover,
-.button:hover {
+.button:hover,
+.add-to-cart-button:hover ,
+.cart-item-remove-button:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
@@ -466,7 +474,8 @@ input[type="submit"]:hover,
 #loginForm button[type="submit"]:hover,
 #signupForm button[type="submit"]:hover,
 #profileForm button[type="submit"]:hover,
-.logout-button:hover {
+.logout-button:hover ,
+.add-to-cart-button:hover{
     background-color: #d17a1a;    
 } 
 .edit-button:hover,
@@ -474,7 +483,8 @@ button[onclick^="enableEdit"]:hover{
     background-color: #5696c1;
 }
 .delete-button:hover,
-#deleteForm button:hover {
+#deleteForm button:hover ,
+.cart-item-remove-button:hover{
     background-color: #c0392b;
 }
 /* Form Links */
