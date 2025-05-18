@@ -20,11 +20,11 @@
             <nav class="main-nav">
                 <ul class="nav-list">
                     <li class="nav-item dropdown">
-                        <a href="/devices" class="nav-link">Devices</a>
+                        <a href="/devicesLoggedIn" class="nav-link">Devices</a>
                         <div class="dropdown-menu">
-                            <a href="/devices?category=laptops" class="dropdown-item">Laptops</a>
-                            <a href="/devices?category=printers" class="dropdown-item">Printers</a>
-                            <a href="/devices?category=tablets" class="dropdown-item">Tablets</a>
+                            <a href="/devicesLoggedIn?category=laptops" class="dropdown-item">Laptops</a>
+                            <a href="/devicesLoggedIn?category=printers" class="dropdown-item">Printers</a>
+                            <a href="/devicesLoggedIn?category=tablets" class="dropdown-item">Tablets</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -46,7 +46,7 @@
             </nav>
 
             <div class="search-row">
-                <form class="search-form" action="/devices" method="get">
+                <form class="search-form" action="/devicesLoggedIn" method="get">
                     <input type="text" name="query" placeholder="Search for products..." required>  <!-- required prevents the form from submitting if the input is empty -->
                     <button type="submit" class="search-button">
                         <img src="/static/images/search.png" alt="Search">

@@ -3,8 +3,8 @@
         "username": "Manousha",
         "password": "456789:;",
         "email": "menna@gmail.com",
-        "address": "bunder al OBOUR",
-        "phone": "01094952599"
+        "address": "Obour City",
+        "phone": "01010101010"
     },
     {
         "username": "Samasemo",
@@ -19,5 +19,12 @@
         "email": "ashraf@org.com",
         "address": "madrid, spain",
         "phone": "01587965412"
+    },
+    {
+        "username": "Nov",
+        "password": "qryhuwdkphg",
+        "email": "nov@gmail.com",
+        "address": "masr el gedida",
+        "phone": "01234567896"
     }
 ]

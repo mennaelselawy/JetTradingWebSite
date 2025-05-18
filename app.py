@@ -105,7 +105,14 @@ class User:
         return html
 
     def updateUserInfo(self):
-        # data = flask.request.form.to_dict()            #.get_json()parse JSON data from the body of an HTTP request (like an API) converts it into a Python dictionary
+         # Server-side validation before updating data
+        if len(self.password) < 8:
+            return self.fillProfileForm(self.makeDictionary(), "<p style='color:red;'>Password must not be less than 8 characters</p>")
+        if len(self.address) < 10:
+            return self.fillProfileForm(self.makeDictionary(), "<p style='color:red;'>Address must be more than 10 characters</p>")
+        if not (self.phone.isdigit() and self.phone.startswith("01") and len(self.phone) == 11):
+            return self.fillProfileForm(self.makeDictionary(), "<p style='color:red;'>Invalid phone number</p>")
+            # data = flask.request.form.to_dict()            #.get_json()parse JSON data from the body of an HTTP request (like an API) converts it into a Python dictionary
         try:
             with open("data/users.json", "r") as f:
                 users =json.load(f)

@@ -85,10 +85,36 @@ function updateUserDataToLocalStorage(){
     const updatedUsername = document.getElementById("username").value;
     const currentEmail = localStorage.getItem("currentUserEmail");
 
+    const updatedPassword = document.getElementById("password").value;
+    const updatedAddress = document.getElementById("address").value.trim();
+    const updatedPhone = document.getElementById("phone").value.trim();
+    const errorDiv = document.getElementById("profileError");
+    errorDiv.textContent = "";
+    errorDiv.style.display = "none";
+
+      // validation
+    if (updatedUsername.length < 3) {
+        errorDiv.textContent = "Username must be at least 3 characters.";
+    } else if (updatedPassword.length < 8) {
+        errorDiv.textContent = "Password must be at least 8 characters.";
+    } else if (updatedAddress.length < 10) {
+        errorDiv.textContent = "Address must be at least 10 characters.";
+    } else if (!(updatedPhone.length === 11 && updatedPhone.startsWith("01") && /^\d+$/.test(updatedPhone))) {
+        errorDiv.textContent = "Invalid phone number. Must be 11 digits and start with '01'.";
+    }
+
+    if (errorDiv.textContent) {
+        errorDiv.style.display = "block";
+        return;
+    }
+
     let users = JSON.parse(localStorage.getItem("users")) || [];
     for(let i = 0; i< users.length; i++){
         if(users[i].email === currentEmail){
             users[i].username = updatedUsername;
+            users[i].password = updatedPassword;
+            users[i].address = updatedAddress;
+            users[i].phone = updatedPhone;
             break;
         }
     }
