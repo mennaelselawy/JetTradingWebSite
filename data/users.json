@@ -3,7 +3,7 @@
         "username": "Manousha",
         "password": "456789:;",
         "email": "menna@gmail.com",
-        "address": "bunder al obour",
+        "address": "bunder al OBOUR",
         "phone": "01094952599"
     },
     {
@@ -12,13 +12,6 @@
         "email": "sama@org.com",
         "address": "cairo, egypt",
         "phone": "01092639792"
-    },
-    {
-        "username": "jana",
-        "password": "mdqddvkudi",
-        "email": "jana@gmail.com",
-        "address": "berlin, germany",
-        "phone": "01548963278"
     },
     {
         "username": "Ashraf",

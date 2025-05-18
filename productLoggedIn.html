@@ -1,21 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">                              
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">      
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">          
-    <title>Devices Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>$$NAME$$ - Product Details</title>
     <link rel="stylesheet" href="static/style.css">
-</head>
-<body class="device">
-    <header class="main-header">
+</head> 
+<body>
+     <header class="main-header">
         <div class="top-row">
             <div class="logo">
-                <a href="/loggedInHome">
-                    <img src="static/images/jetTradingLogo.png" alt="Jet Trading Logo">
-                </a>
+                <a href="/loggedInHome.html"><img src="static/images/jetTradingLogo.png" alt="Jet Trading Logo"></a>
             </div>
-            
             <nav class="main-nav">
                 <ul class="nav-list">
                     <li class="nav-item dropdown">
@@ -51,6 +48,7 @@
                     </button>
                 </form>
             </div>
+
             <div class="cart-and-profile">
                 <div class="cart-icon" onclick="goToCart()">
                     <img src="static/images/cart-icon.png" class="add-to-cart-icon">
@@ -66,10 +64,18 @@
             </div>
         </div>
     </header>
-    <h1 class="heading-all-devices">$$CATEGORY$$</h1>
-    <div class="devices-grid">
-        $$DEVICES$$
+    <nav class="breadcrumbs">
+        <a href="/loggedInHome">Home</a> > <a href="/devicesLoggedIn">Devices</a> > <span>$$NAME$$</span>
+    </nav>
+    <div class="product-detail-div">
+        <img src="$$IMAGE$$" alt="$$NAME$$" class="product-detail-img">
+        <div class="product-detail">
+            <h1>$$NAME$$</h1>
+            <p class="product-description">$$DESCRIPTION$$</p>
+            <p class="product-price">EGP $$PRICE$$</p>
+            <div class="product-actions">$$ADD_TO_CART$$</div>
+        </div>
     </div>
-    <script src="static/script.js"></script>
+     <script src="static/script.js"></script>
 </body>
 </html>
