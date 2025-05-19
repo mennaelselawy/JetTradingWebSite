@@ -45,6 +45,7 @@ To run this project, make sure you have the following:
   - **Six instance methods**: `makeDictionary()`, `saveData()`, `getUserInfo()`, `fillProfileForm()`, `updateUserInfo()`, `deleteUser()`
   - **Two static methods**: `safeHash()`,`safeUnhash()`
   - **File and line numbers where used**: `app.py` and `routes.py`, multiple lines where users are read/written.
+    
   **Second Class:**  
   - **File name**: `models/device.py`  
   - **Line number**: 4–130  
