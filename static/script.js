@@ -211,15 +211,10 @@ function addToCart(product){
     saveCart(cart);
 }
 
-function removeFromCart(product){
-    let oldCart = getCart();
-    let newCart = [];
-    for(let i=0; i < oldCart.length; i++){
-        if(oldCart[i].name !== product){
-            newCart.push(oldCart[i]);
-        }
-    }
-    saveCart(newCart);
+function removeFromCart(index){
+    let cart = getCart();
+    cart.splice(index,1);
+    saveCart(cart);
     displayCart();
 }
 
@@ -264,7 +259,7 @@ function displayCart(){
             button.textContent = "Remove";
             button.className ="cart-item-remove-button";
             button.onclick = function(){
-                removeFromCart(item.name);
+                removeFromCart(i);
             };
 
             card.appendChild(img);
@@ -283,7 +278,6 @@ function saveCart(cart){
     if(!email) return;
     sessionStorage.setItem("cart_"+ email , JSON.stringify(cart)); 
 }
-
 
 function addToCartButton(){
     for(let i=0; i< buttons.length; i++){

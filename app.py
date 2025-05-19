@@ -1,7 +1,6 @@
 from flask import redirect, request,  url_for ,jsonify, Response , Flask
 from models.user import User
 from models.device import Devices
-from models.cart import Cart
 from utils.helpers import getHtml
 from routes import handleLogin, handleProfile, handleProductsJson
 app = Flask("app")
