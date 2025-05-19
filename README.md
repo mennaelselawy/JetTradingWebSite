@@ -96,7 +96,7 @@ project/
 │   ├── index.html
 │   ├── loggedInHome.html
 │   ├── devices.html
-│   ├── DevicesLoggedIn.html
+│   ├── devicesLoggedIn.html
 │   ├── product.html
 │   ├── productLoggedIn.html
 │   ├── login.html
