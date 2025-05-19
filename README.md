@@ -7,12 +7,37 @@ This is a full-stack web application for electronics company, **Jet Trading**, t
 ## 🛍️ What Does It Do?
 
 This website allows users to:
-- Browse available devices (laptops, tablets, printers).
-- Sign up and log in with validation.
-- Add devices to a cart (available only to logged-in users).
-- Edit profile information (except email).
-- Filter/search products by category or keywords.
-- Store cart data per session and user data persistently.
+
+## 🛍️ What Does It Do?
+
+This website allows users to:
+
+- 🖥️ **Browse available devices** by category (laptops, tablets, printers).
+
+- ✅ **Sign up and log in** with validation for required fields and formats.
+
+- 🛒 **Add devices to a cart**, which is available only to logged-in users.
+
+- 🗑️ **Remove individual items from the cart** or **clear the entire cart**, using `sessionStorage`.
+
+- 🔄 **Edit profile information** (username, password, address, phone) with validation for all fields:
+  - Updated profile data is saved to the `users.json` file.
+  - If the username is changed, the `localStorage` is automatically updated.
+
+- 🔓 **Log out** at any time, which clears session and local storage safely.
+
+- ❌ **Delete account permanently**, which removes the user from both the JSON file and browser `localStorage`.
+
+- 🔍 **Filter/search products** by category or keyword dynamically.
+
+- 💾 **Store cart data** per session using `sessionStorage`, so it clears on logout or tab close.
+
+- 📦 **Load all product data** from a text file and display it dynamically using Python classes and HTML rendering.
+
+- 🔐 **Secure password handling** via hashing.
+
+- 🧪 **Input validation** is implemented in signup, login, and profile update forms to ensure clean, correct data.
+
 
 ### ✨ Unique Feature
 
