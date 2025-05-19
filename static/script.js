@@ -126,6 +126,7 @@ document.addEventListener("DOMContentLoaded", function(){
 function logOutAndRedirectToHome() {
     localStorage.removeItem("currentUser");
     localStorage.removeItem("currentUserEmail");
+    sessionStorage.clear();
     window.location.href = "/";
 }
 
