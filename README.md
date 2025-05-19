@@ -1,4 +1,3 @@
-
 # Jet Trading E-Commerce Website
 
 This is a full-stack web application for electronics company, **Jet Trading**, that sells laptops, printers, and tablets. The website supports both guest and registered users, enabling a dynamic shopping experience.
