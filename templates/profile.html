@@ -47,7 +47,7 @@
 
             <div class="search-row">
                 <form class="search-form" action="/devicesLoggedIn" method="get">
-                    <input type="text" name="query" placeholder="Search for products..." required>  <!-- required prevents the form from submitting if the input is empty -->
+                    <input type="text" name="query" placeholder="Search for products..." required> 
                     <button type="submit" class="search-button">
                         <img src="/static/images/search.png" alt="Search">
                     </button>
@@ -59,7 +59,7 @@
 
     <h2 class="h2">User Profile</h2>
     
-    <form id="profileForm" action="/profile" method="POST">    <!-- method="POST" class="profilePageForm" -->
+    <form id="profileForm" action="/profile" method="POST">    
         <div class="form-group">
             <label >Username:</label> 
             <div class="input-group">
@@ -106,7 +106,7 @@
     
     <form id="deleteForm" action="/delete" method="Post" class="delete-form"> 
         <button type="submit" class="delete-button">Delete Account</button>
-        <!-- User() class relies on getting form values (like email) via flask.request.form.get().SO If your deleteForm only contains a submit button, then no actual form fields (like email) are posted, so user.email becomes None. This causes the backend to fail to find a user and remove them.  -->
+       
         <input type="hidden" id="deleteEmail" name="email"value="">
     </form>
     <script src="static/script.js"></script>

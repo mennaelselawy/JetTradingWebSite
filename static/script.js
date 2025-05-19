@@ -5,7 +5,6 @@ const loginForm = document.getElementById("loginForm");
 const deleteForm = document.getElementById("deleteForm");
 
 function saveUserDataToLocalStorage(){
-    //manually get the form values
     const username = document.getElementById("username").value.trim();
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value;
@@ -13,8 +12,8 @@ function saveUserDataToLocalStorage(){
     const phone = document.getElementById("phone").value.trim();
 
     let valid = true
-    let users= JSON.parse(localStorage.getItem("users")) || [];   //oring it with curly brackets to start with empty array if no users
-    //check if user already exist by email so not to save it 
+    let users= JSON.parse(localStorage.getItem("users")) || [];   
+    
     const existingUser = users.find(u => u.email === email);
     if( password.length < 8 ||
         !(email.endsWith("@gmail.com")|| email.endsWith("@org.com")) ||
@@ -25,7 +24,6 @@ function saveUserDataToLocalStorage(){
         valid = false;
     }
     if(valid){
-        //to build an object in js as a struct in c++
         const user = {
             username,
             email
@@ -40,13 +38,13 @@ if(signUpForm){
 
 if(loginForm){
     loginForm.addEventListener("submit", async function(event){
-        event.preventDefault(); // prevent default form submission
+        event.preventDefault(); 
 
         const email = document.getElementById("email").value.trim();
         const password = document.getElementById("password").value;
         const error = document.getElementById("loginError");
-        error.textContent = ""; // clear previous error
-        error.style.display = "none"; // hide initially
+        error.textContent = ""; 
+        error.style.display = "none"; 
         try {
             const response = await fetch("/login", {
                 method: "POST",
@@ -58,11 +56,9 @@ if(loginForm){
 
             const result = await response.json();
             if (result.success) {
-                // Store user data in localStorage
                 localStorage.setItem("currentUserEmail", result.user.email);
                 localStorage.setItem("currentUser", result.user.username);
 
-                // Redirect to logged-in home page
                 window.location.href = "/loggedInHome";
             } else {
                 error.textContent = result.message ||"Invalid credentials.";
@@ -92,7 +88,6 @@ function updateUserDataToLocalStorage(){
     errorDiv.textContent = "";
     errorDiv.style.display = "none";
 
-      // validation
     if (updatedUsername.length < 3) {
         errorDiv.textContent = "Username must be at least 3 characters.";
     } else if (updatedPassword.length < 8) {
@@ -224,7 +219,7 @@ function clearCart(){
 }
 
 function displayCart(){
-    cartItems.innerHTML = ""; //clear the cart first
+    cartItems.innerHTML = ""; 
     const cart = getCart();
     if(!cartItems) return;
     if(cart.length === 0){

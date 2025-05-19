@@ -8,7 +8,7 @@ class User:
     def __init__(self, formData = None):
             if formData is None:
                 formData = request.form
-            self.username = formData.get("username")  #flask-> module , request-> object , form -> property, get-> method 
+            self.username = formData.get("username")  
             self.password = formData.get("password", "").strip()
             self.email = formData.get("email", "" ).strip()
             self.address = formData.get("address", "").strip()
@@ -47,17 +47,18 @@ class User:
             "phone": self.phone
         }
         return dict 
-    
+
+#used to:   create file if not exist start with empty list, reads as json file gives python file, CHECK THAT THE USER NOT ALREADY EXIST BY EMAIL
+           # append new user in the python list in memory then write the new user in the file
     def saveData(self):
-        # if the file not exist create one so
         try:
             with open("data/users.json", "r") as f:
-                users = json.load(f)   #reads as json file gives python file
+                users = json.load(f)   
         except (FileNotFoundError , json.JSONDecodeError):
-            users = [] #file does not exist or empty so i will start with empty list
+            users = [] 
         
         failedSignUp = getHtml("signup")
-        #CHECK THAT THE USER NOT ALREADY EXIST BY EMAIL
+        
         if any(user["email"].lower() == self.email.lower() for user in users) :
             return failedSignUp.replace("$$ERROR$$", "<p style='color:red;'>Sign Up Failed: User already exists</p>")
             
@@ -67,15 +68,13 @@ class User:
             return failedSignUp.replace("$$ERROR$$", "<p style='color:red;'>Invalid email domain</p>")
         if len(self.address)< 10:
             return failedSignUp.replace("$$ERROR$$", "<p style='color:red;'>Invalid address: address must be more than 10</p>")
-            #append the new user: to add in the python list in memory not in the file
         if not (self.phone.isdigit() and len(self.phone) == 11 and self.phone.startswith("01")):
             return failedSignUp.replace("$$ERROR$$", "<p style='color:red;'>Invalid Phone number</p>")
         
         users.append(self.makeDictionary())
-        #to write the new user in the file
         with open("data/users.json", "w") as f:
-                json.dump(users, f, indent=4)                #takes python object as user list and writes it as JSON formatted text into file SO reverse of json.load()
-        return redirect(url_for("logInPage"))  # redirect after success
+                json.dump(users, f, indent=4)                
+        return redirect(url_for("logInPage"))
 
     def getUserInfo(self, email):
         try:
@@ -96,16 +95,15 @@ class User:
         html = html.replace("$$PHONE$$", userData["phone"])
         html = html.replace("$$ERROR$$", message)
         return html
-
-    def updateUserInfo(self):
-         # Server-side validation before updating data
+    
+# Server-side validation before updating data
+    def updateUserInfo(self):    
         if len(self.password) < 8:
             return self.fillProfileForm(self.makeDictionary(), "<p style='color:red;'>Password must not be less than 8 characters</p>")
         if len(self.address) < 10:
             return self.fillProfileForm(self.makeDictionary(), "<p style='color:red;'>Address must be more than 10 characters</p>")
         if not (self.phone.isdigit() and self.phone.startswith("01") and len(self.phone) == 11):
             return self.fillProfileForm(self.makeDictionary(), "<p style='color:red;'>Invalid phone number</p>")
-            # data = flask.request.form.to_dict()            #.get_json()parse JSON data from the body of an HTTP request (like an API) converts it into a Python dictionary
         try:
             with open("data/users.json", "r") as f:
                 users =json.load(f)
@@ -114,7 +112,6 @@ class User:
             return failedPage.replace("$$ERROR$$", "<p style='color:red;'>Update Failed </p>")
         
         for i in range(len(users)):
-            # user = users[i]
             if users[i]["email"] == self.email:
                 users[i] = self.makeDictionary()
                 break

@@ -36,7 +36,6 @@ def loggedInHomePage():
 def profilePage():
     return handleProfile()
 
-#HTML Forms do not suppory put or patch or delete for update or delete 
 @app.route("/profile" , methods=["POST"])
 def updateUser():
     return User().updateUserInfo()

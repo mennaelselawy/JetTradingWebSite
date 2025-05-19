@@ -1,7 +1,7 @@
 from urllib.parse import quote
 from flask import request
 from utils.helpers import getHtml
-                                                # DEVICES
+                                            
 class Devices:
     def __init__(self, name, description, price, image , category):
         self.name = name
@@ -10,7 +10,7 @@ class Devices:
         self.image = image
         self.category = category
 
-# make each device dictionary to convert to JSON format if i want to deal with js so i will need it json
+# used to: make each device dictionary to convert to JSON format if i want to deal with js so i will need it json
     def make_dictionary(self):
         dict={
             "name": self.name,
@@ -21,9 +21,9 @@ class Devices:
         }
         return dict
 
-# here i parse the text files to python objects of the class to can deal with it as search/filter
-#return list  to deal with html i use lists
-    @staticmethod                               #only reads the lines from a file and convert them into Devices objects using constructor
+# used to: parse the text files as lines to python devices objects of the class using constructor
+# return: list to deal with html i use lists
+    @staticmethod                               
     def parse_products_file():
         products =[]
         try:
@@ -31,18 +31,17 @@ class Devices:
                 for line in f:
                     property = line.strip().split("|")
                     if len(property) == 5:
-                        product = Devices(property[0], property[1], property[2], property[3], property[4])     #it creates objects from the class devices
+                        product = Devices(property[0], property[1], property[2], property[3], property[4])    
                         products.append(product)
         except(FileNotFoundError):
             products=[]
         return products
     
+# i used the data- attribute so in javascript will get it by dataset.
     @staticmethod
     def display_devices_html(devices_list, show_cart_buttons=False, logged_in = False):
         html=""
         for device in devices_list: 
-            # i used the data- attribute so in javascript will get it by dataset.
-            # the quote library for the spaces in the name of the device to put it in teh url without spaces ht7ot mkan l space %
             if logged_in:
                 product_page_path = "/productLoggedIn"
             else:
@@ -115,7 +114,6 @@ class Devices:
                 html = html.replace("$$IMAGE$$", f"static/images/{device.image}")
                 html = html.replace("$$CATEGORY$$", device.category.capitalize())
                 if logged_in:
-                        # Add proper data attributes for JavaScript
                     add_to_cart_html = f"""
                     <button class="add-to-cart-button"
                         data-name="{device.name}"

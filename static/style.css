@@ -1,13 +1,13 @@
 
 *{
-    box-sizing: border-box; /* because i made the header fixed & width 100% so mak all the elemnts inside the border*/
+    box-sizing: border-box; 
 }
 html, body{
     background-color: #d7d7d7;
-    margin: 0;               /*remove default margin*/
+    margin: 0;               
     padding: 0;
     font-family: Arial;
-    padding-top: 70px; /* Equal to header height */
+    padding-top: 70px; 
     max-width: 100%;
     color: #333;
 }
@@ -15,26 +15,25 @@ a{
     text-decoration: none;
     color: #333;
 }
-                                                       /*HEADER*/
+                                                              /*HEADER*/
 .main-header{
-    position: fixed;               /* to make the header fixed through scrolling in the page */
+    position: fixed;               
     top: 0;
     width: 100%;  
-    z-index: 999;                 /*number:999 ->This should be on top of most things, but not necessarily the very top layer.*/
+    z-index: 999;                 
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     background-color: #d7d7d7;
     padding:0 20px;
 }
 
 .top-row {
-    display: flex;                    /* now all the children of the top-row are flex item of the flex container top-row*/
-    /*all these features needs flex container to work with */
-    justify-content: space-between;        /*space between the logo, nav, auth*/
-    align-items: center;                 /*centering vertically*/
-    flex-wrap: wrap;               /* items to wrap on smaller screens*/
+    display: flex;             
+    justify-content: space-between;        
+    align-items: center;                
+    flex-wrap: wrap;               
     padding: 15px 0;
 }
-                        /*LOGO*/
+                          /*LOGO*/
 .logo img{
     height: 65px;      
     transition: transform 0.3s ease;
@@ -46,7 +45,7 @@ a{
                            /*NAV BUTTONS*/
 .nav-list {
     display: flex;
-    list-style: none;       /*to remove bullet points if the list*/
+    list-style: none;       
     margin: 0;
     padding: 0;
     gap: 2px; 
@@ -94,7 +93,7 @@ a{
     padding-left: 25px;
 }
 
-                    /*  DROPDOWN INDICATOR*/
+                      /*  DROPDOWN INDICATOR*/
 .dropdown > .nav-link::after {
     content: "⌄";
     margin-left: 6px;
@@ -134,7 +133,7 @@ a{
 .search-form .search-button{
     position: absolute;
     top: 50%;
-    right: 15px;  /* Position from right edge of input */
+    right: 15px;  
     background: none;
     border: none;
     cursor: pointer;
@@ -210,7 +209,7 @@ a{
     display: flex;
     justify-content: center;
     gap: 30px;
-    flex-wrap: wrap; /* Responsive wrap */
+    flex-wrap: wrap; 
     text-align: center;
 }
                                                  
@@ -231,22 +230,20 @@ a{
     content: '';
     position: absolute;
     bottom: 0;
-    left: 50%;    /* Starts at 50% from the left (center) */
-    transform: translateX(-50%);  /* Shifts it back by half its width to truly center it */
+    left: 50%;    
+    transform: translateX(-50%);  
     width: 80px;
     height: 3px;
     background-color: #e0922f;
 }
 
-
                                      /*CATEGORY*/
-
 .category {
      background-color: #f5f5f5;
     padding: 25px;
     border-radius: 10px;
     width: 220px;
-    transition: all 0.3s ease;   /*0.2 seconds  nimation start slowly, speed up in the middle, and slow down at the end*/
+    transition: all 0.3s ease;   
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
@@ -281,7 +278,7 @@ a{
     text-decoration: underline;
 }
 .heading-all-devices {
-    margin-top: 25px; /* Slightly more than header height */
+    margin-top: 25px; 
 }
 .devices-grid{
     display: grid;
@@ -303,10 +300,10 @@ a{
     box-sizing: border-box;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;  
-    display: flex;               /* Add this */
+    display: flex;               
     flex-direction: column; 
-    align-self: flex-start;     /* Add this */ 
-    /* If the element is scaled, rotated, moved, etc. using transform, it will animate over 0.2 seconds. */
+    align-self: flex-start;   
+    width: 730px;  
 }
 .device-card:hover{
     transform: scale(1.03);
@@ -314,7 +311,7 @@ a{
 }
 .device-card-link{
     text-decoration: none;
-    color: inherit;       /*inherit means Use the same text color as the parent element.*/
+    color: inherit;      
 }
 .device-img{
     width: 100%;
@@ -356,7 +353,6 @@ a{
     opacity: 0.6;
 }
 
-
                                                /*PRODUCT PAGE*/    
 .product-detail-div{
     display: flex;
@@ -397,7 +393,6 @@ a{
     font-weight: bold;
     margin: 16px 0;
 }
-
                                                       /*LOG IN / SIGNUP / PROFILE PAGES*/
 #profileForm, #loginForm, #signupForm{
     max-width: 500px;
@@ -425,14 +420,14 @@ form input[type="password"],
 form input[type="email"] {
     width: 100%;
     padding: 12px 17px;
-    border: 1px solid #ddd;       /*hya bt3ml vorder automatic f 3ayza ashelo*/
+    border: 1px solid #ddd;       
 }  
 form input[type="text"]:focus,
 form input[type="password"]:focus,
 form input[type="email"]:focus {
     border-color: #e0922f;
     box-shadow: 0 0 0 3px rgba(224, 146, 47, 0.2);
-    outline: none;     /*heya bt3ml outline by default f 3ayza ashelo 3ashan abyn l orange border elly ha7to*/
+    outline: none;    
 }  
 form input[readonly] {
     background-color: #f5f5f5;
@@ -471,7 +466,7 @@ button[onclick^="enableEdit"],
     padding: 8px 15px;
     font-size: 14px;
     margin-left: 10px;
-    display: inline-block; /* For proper alignment with inputs */
+    display: inline-block; 
 }
 .delete-button,
 #deleteForm button ,
