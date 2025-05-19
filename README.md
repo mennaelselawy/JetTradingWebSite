@@ -146,4 +146,7 @@ project/
 4. Open your browser and go to:
    ```bash
    http://127.0.0.1:5000/
+<<<<<<< HEAD
 
+=======
+>>>>>>> eb6ab32 (comments deleted , read me updated, images size updated)
