@@ -188,7 +188,6 @@ function goToCart(){
     }
 }
 
-
 function getCurrentUserEmail(){
     return localStorage.getItem("currentUserEmail") || null;
 }
@@ -234,7 +233,7 @@ function displayCart(){
     const cart = getCart();
     if(!cartItems) return;
     if(cart.length === 0){
-        cartItems.innerHTML = "<p>Your Cart is empty.</p>"
+        cartItems.innerHTML = "<p class='no-cart'>Your Cart is empty.</p>"
         return;
     }
     else{

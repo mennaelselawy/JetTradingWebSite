@@ -322,7 +322,7 @@ a{
     object-fit: contain;
     max-width: 100%;
 }
-.device-name{
+.device-name , .no-results , .no-cart{
     font-size: 1.1em;
     margin-top: 10px 0 5px;
     font-weight: 600;
@@ -347,6 +347,15 @@ a{
     padding: 8px 15px;
     margin: 5px 0;
 }
+
+.no-results::before {
+    content: "🔍";
+    display: block;
+    font-size: 2.5em;
+    margin-bottom: 15px;
+    opacity: 0.6;
+}
+
 
                                                /*PRODUCT PAGE*/    
 .product-detail-div{
@@ -499,7 +508,7 @@ button[onclick^="enableEdit"]:hover{
     background-color: #c0392b;
 }
 /* Form Links */
-form + p {
+form + p , .no-results, .no-cart{
     text-align: center;
 }
 form + p a {
