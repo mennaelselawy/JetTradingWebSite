@@ -7,7 +7,7 @@ from urllib.parse import quote
 app = flask.Flask("app")
 
 def getHtml(pageName):
-    with open(pageName + ".html") as htmlPage:
+    with open("templates/" + pageName + ".html") as htmlPage:
         return htmlPage.read()
 
                                                         # USER
