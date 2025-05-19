@@ -52,12 +52,12 @@ To run this project, make sure you have the following:
 
 ## 🧠 Project Checklist
 
-- [x] It is available on GitHub.
-- [x] It uses the **Flask** web framework.
-- [x] It uses at least one module from the Python Standard Library other than `random`.  
+- ✅ It is available on GitHub.
+- ✅ It uses the **Flask** web framework.
+- ✅ It uses at least one module from the Python Standard Library other than `random`.  
   **Module name**: `urllib.parse.quote` (used to encode device names for URLs by replacing spaces with `%20`)
 
-- [x] It contains at least one class written by you that has both properties and methods.  
+- ✅ It contains at least one class written by you that has both properties and methods.  
   **First Class:**  
   - **File name**: `models/user.py`  
   - **Line number**: 7–139  
@@ -74,10 +74,10 @@ To run this project, make sure you have the following:
   - **Four static methods**: `parse_products_file()`,`display_devices_html()`, `devicesPageHtml()`, `productDetails()`
   - **File and line numbers where used**: `app.py` and `routes.py`, multiple lines where users are read/written.
 
-- [x] It makes use of **JavaScript** in the front end and uses the **localStorage** and **sessionStorage** of the web browser.
-- [x] It uses **modern JavaScript** (`let`, `const`, arrow functions).
-- [x] It reads and writes to the **same file** (`users.json`) using Python, and also reads from a text file (`products.txt`).
-- [x] It contains **conditional statements**.  
+- ✅ It makes use of **JavaScript** in the front end and uses the **localStorage** and **sessionStorage** of the web browser.
+- ✅ It uses **modern JavaScript** (`let`, `const`, arrow functions).
+- ✅ It reads and writes to the **same file** (`users.json`) using Python, and also reads from a text file (`products.txt`).
+- ✅ It contains **conditional statements**.  
   **Example:**  
   - **File name**: `static/script.js`  
   - **Line number(s)**: 19-27-37-...  
@@ -85,7 +85,7 @@ To run this project, make sure you have the following:
     if(cartItems){ displayCart(); }
     ```
 
-- [x] It contains **loops**.  
+- ✅ It contains **loops**.  
   **Example:**  
   - **File name**: `static/script.js`  
   - **Line number(s)**: 111–152-234-282  
@@ -95,12 +95,12 @@ To run this project, make sure you have the following:
     }
     ```
 
-- [x] It lets the user enter a value in a text box (e.g., in the signup, login and profile forms).
-- [x] This value is **processed by your back-end Python code**.
-- [x] It **validates and handles wrong input gracefully** (all input fields are validated).
-- [x] It is styled using custom **CSS** in `static/style.css`.
-- [x] The code follows clean **style conventions**, uses proper comments, and avoids experimental or unused code.
-- [x] All exercises are completed and pushed to **GitHub**.
+- ✅ It lets the user enter a value in a text box (e.g., in the signup, login and profile forms).
+- ✅ This value is **processed by your back-end Python code**.
+- ✅ It **validates and handles wrong input gracefully** (all input fields are validated).
+- ✅ It is styled using custom **CSS** in `static/style.css`.
+- ✅ The code follows clean **style conventions**, uses proper comments, and avoids experimental or unused code.
+- ✅ All exercises are completed and pushed to **GitHub**.
 
 ## 📁 Project Structure
 
